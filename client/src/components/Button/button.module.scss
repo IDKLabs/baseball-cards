@@ -1,15 +1,256 @@
 @import "styles/variables.scss";
 
-.button {
-  border: 2px solid $primary;
+
+.noWebkitAppearance {
+  -webkit-appearance: none !important;
 }
 
-.button.ghost {
-  background-color: transparent;
-  color: $primary;
-  border: 1px solid $primary;
-  box-shadow: 0 0 2px transparent;
-  &:hover {
-    box-shadow: 0 0 2px $primary;
+@mixin button {
+  border-radius: 22px;
+  padding: 9px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: 700;
+  color: white;
+  text-align: center;
+  outline: 0;
+  g {
+    fill: white;
+  }
+  font-weight: 700;
+  // font-family: $headings-font-family;
+  &.disabled, &:disabled {
+    cursor: not-allowed;
+    background-color: $btn-disabled-bg !important;
+    border-color: $btn-disabled-bg !important;
+    box-shadow: none !important;
+    color: $btn-disabled-color !important;
+    g {
+      fill: $btn-disabled-color !important;
+    }
+  }
+}
+
+@mixin button-color($color: $kent-gray-400, $text-color: #fff) {
+  background-color: $color;
+  border: 1px solid $color;
+  @include ev-2(rgba($color, 0.4));
+  &:hover, &:focus:not(.inactive) {
+    background-color: tint($color, 10%);
+    border-color: tint($color, 10%);
+    @include ev-4(rgba($color, 0.5));
+    color: $text-color;
+    g { fill: $text-color; }
+  }
+  &:active, &:active:focus {
+    background-color: shade($color, 10%);
+    border-color: shade($color, 10%);
+    @include ev-1(rgba($color, 0.5));
+    color: $text-color;
+    g { fill: $text-color; }
+  }
+  :global(.btn-group) & {
+    &:active:focus.active, &:focus, &:active, &.active {
+      background-color: shade($color, 10%);
+      border-color: shade($color, 10%);
+      @include ev-1(rgba($color, 0.5));
+    }
+    &:active:not(.active), &:active:focus:not(.active) {
+      background-color: $color;
+      border: 1px solid $color;
+      @include ev-2(rgba($color, 0.4));
+    }
+    &:hover {
+      background-color: tint($color, 10%);
+      border-color: tint($color, 10%);
+      @include ev-4(rgba($color, 0.5));
+    }
+  }
+}
+
+@mixin button-link($color: $kent-gray-500, $bg: $kent-gray-20) {
+  color: $color;
+  g { fill: $color; }
+  &:hover, &:focus, &:active {
+    box-shadow: none;
+    background-color: $bg;
+    border-color: $bg;
+    color: tint($color, 10%);
+    g { fill: tint($color, 10%); }
+  }
+  &.disabled, &:disabled {
+    background-color: transparent !important;
+    border-color: transparent !important;
+  }
+}
+
+@keyframes loading {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+.button {
+  @include button;
+  @include button-color;
+  display: inline-block;
+  &.loading {
+    animation: loading 1s infinite;
+    cursor: wait;
+  }
+  &.link {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    &:active, &:hover, &:focus {
+      box-shadow: none;
+    }
+    @include button-link;
+  }
+  &.square {
+    border-radius: 3px;
+  }
+  &.block {
+    display: block;
+  }
+}
+
+a.button {
+  -webkit-appearance: none !important;
+  text-decoration: none !important;
+}
+
+.wide {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.block {
+  width: 100%;
+}
+
+.large {
+  font-size: 16px;
+  border-radius: 100px;
+}
+
+.small {
+  padding: 5px 15px;
+}
+
+// white button options
+
+@mixin button-ghost($color: $btn-default-border-color, $text: $text-color, $borderColor: $btn-default-border-color) {
+  background-color: #fff;
+  border: 1px solid $borderColor;
+  @include ev-2(rgba($color, 0.7));
+  color: $text;
+  g { fill: $text; }
+  &:hover, &:focus:not(.inactive) {
+    background-color: $kent-gray-10;
+    border-color: $borderColor;
+    @include ev-4(rgba($color, 0.7));
+    color: $text;
+    g { fill: $text; }
+  }
+  &:active, &:active:focus {
+    background-color: $kent-gray-10;
+    border-color: $borderColor;
+    @include ev-1(rgba($color, 0.7));
+    color: $text;
+    g { fill: $text; }
+  }
+  :global(.btn-group) & {
+    &:active:focus.active, &:focus, &:active, &.active {
+      background-color: $kent-gray-40;
+      border-color: $borderColor;
+      @include ev-1(rgba($color, 0.7));
+      color: $text;
+      g { fill: $text; }
+    }
+    &:active:not(.active), &:active:focus:not(.active) {
+      background-color: #fff;
+      border: 1px solid $borderColor;
+      @include ev-2(rgba($color, 0.7));
+    }
+    &:not(.active):hover {
+      background-color: $kent-gray-10;
+      border-color: $borderColor;
+      @include ev-4(rgba($color, 0.7));
+    }
+  }
+}
+
+
+.success {
+  @include button-color($marine-green);
+  &.link {
+    @include button-link($marine-green);
+  }
+}
+
+.primary {
+  @include button-color($primary);
+  &.link {
+    @include button-link($primary);
+  }
+  &.ghost {
+    @include button-ghost($primary, $primary, $primary);
+  }
+}
+
+.action {
+  @include button-color($action);
+  &.link {
+    @include button-link($action);
+  }
+}
+
+.danger {
+  @include button-color($danger);
+  &.link {
+    @include button-link($danger);
+  }
+}
+
+
+.white {
+  @include button-ghost($btn-default-border-color);
+  background-color: white;
+  // border: 1px solid $btn-default-border-color;
+  // color: $text-color;
+}
+
+.whitePurple {
+  @include button-ghost($btn-default-border-color, $tehama-purple, $tehama-purple);
+  background-color: white;
+  // border: 1px solid $btn-default-border-color;
+  // color: $text-color;
+}
+
+
+:global(.btn-group) {
+  .button {
+    &:not(:first-child):not(:last-child) {
+      border-radius: 0;
+    }
+    &:first-child {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &:last-child {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+}
+
+:global(.form-group) {
+  .button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: none;
+    height: 42px;
   }
 }

@@ -20,6 +20,7 @@ const styleBooleans = [
   'danger',
   'default',
   'white',
+  'action',
 
   // types
   'link',

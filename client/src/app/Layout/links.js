@@ -22,6 +22,10 @@ export const LinkEnum = Object.freeze({
     to: routes.SIGN_IN,
     title: 'Sign in',
   },
+  CREATE: {
+    to: routes.CREATE,
+    title: 'Create your card',
+  },
   LOG_OUT: {
     kind: 'LOG_OUT',
   },
@@ -31,16 +35,19 @@ export const defaultLinks = ({ isLoggedIn, isAdmin, ..._props }) => (
   !isLoggedIn ? {
     groupOne: [],
     groupTwo: [{
-      ...LinkEnum.SIGN_UP,
+      ...LinkEnum.CREATE,
       kind: 'button',
       styleNames: [],
+      attrs: {
+        action: true,
+      },
     },
     {
       ...LinkEnum.SIGN_IN,
       kind: 'button',
       styleNames: [],
       attrs: {
-        ghost: true,
+        link: true,
       },
     }],
   } : {

@@ -10,3 +10,116 @@ $primary: black;
 $active-link-bg: #eee;
 $input-border: #eee;
 $bg-light: #f9f9f9;
+
+$white:    #ffffff;
+$gray-100: $kent-gray-10;
+$gray-200: $kent-gray-30;
+$gray-300: $kent-gray-100;
+$gray-400: $kent-gray-400;
+$gray-500: $kent-gray-500;
+$gray-600: $kent-gray-600;
+$gray-700: $kent-gray-700;
+$gray-800: $kent-gray-800;
+$gray-900: $kent-gray-900;
+$black:    #000000;
+
+$blue:    $crystal-blue;
+$indigo:  $pacific-blue;
+$purple:  $tehama-purple;
+$pink:    $electric-red;
+$red:     $brick-red;
+$orange:  $florida-orange;
+$yellow:  $banana-yellow;
+$green:   $marine-green;
+
+$primary:       black; // $tehama-purple-400;
+$primary-text:  black; // $tehama-purple-500;
+$secondary:     $white;
+$success:       $green;
+$info:          $crystal-blue-500;
+$info-bg:       $crystal-blue-20;
+$info-text:     $crystal-blue-800;
+$warning:       $yellow;
+$danger:        $red;
+$danger-bg:     $brick-red-20;
+$danger-text:   $brick-red-600;
+$light:         $gray-100;
+$dark:          $gray-800;
+
+$action: black;
+$v2-primary: $tehama-purple-400;
+$v2-primary-text: $tehama-purple-500;
+
+// Text colors
+$body-color:    $gray-900;
+$headings-color: $gray-800;
+$text-color: $body-color;
+$list-group-link-color: $text-color;
+$text-muted: $kent-gray-300;
+
+// Inputs
+$input-color: $text-color;
+$input-border-color: $kent-gray-40;
+$input-disabled-bg: $kent-gray-20;
+$input-disabled-color: $kent-gray-200;
+$input-placeholder-color: $kent-gray-100;
+$input-label-color: $text-muted;
+
+// Buttons
+$border-radius: 2px;
+$input-btn-padding-y: 0.7rem;
+$btn-disabled-bg: $input-disabled-bg;
+$btn-disabled-color: $input-disabled-color;
+$btn-default-border-color: $input-border-color;
+
+// Fonts
+$lato: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Lato, "Helvetica Neue", Arial, sans-serif;
+$circular: "Circular", "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Lato, "Helvetica Neue", Arial, sans-serif;
+$font-family-sans-serif: $lato;
+$headings-font-family: $circular;
+
+// Typography
+$font-size-base: 0.8125rem;
+$link-color: $primary-text;
+$link-hover-color: darken($link-color, 20%);
+
+// List group
+$list-group-border: $gray-200;
+$list-group-hover-bg: $gray-100;
+$list-group-border-color: $list-group-border;
+$list-group-item-padding-y: .75rem;
+$list-group-item-padding-x: 1rem;
+
+// Navbar
+$navbar-padding-x: 0;
+$navbar-light-color: $gray-700;
+$navbar-padding-y: 0;
+$nav-link-padding-y: 1.5rem;
+$navbar-nav-link-padding-y: $nav-link-padding-y;
+$navbar-brand-padding-y: $nav-link-padding-y;
+$nav-link-padding-x: 0.8rem;
+$navbar-nav-link-padding-x: $nav-link-padding-x;
+$navbar-light-toggler-border-color: transparent;
+$nav-tabs-link-active-bg: transparent;
+$navbar-width: 230px;
+$navbar-width-collapsed: 60px;
+$header-height: 60px;
+
+// Well
+$well-bg: $gray-100;
+$card-cap-bg: $gray-100;
+
+// Dropdowns
+$component-active-color: white;
+
+// hr
+$hr-margin-y: 2rem;
+
+// adjust to accommodate sidebar
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px + $navbar-width,
+  md: 768px + $navbar-width,
+  lg: 992px + $navbar-width,
+  xl: 1200px + $navbar-width
+);

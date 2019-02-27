@@ -3,7 +3,7 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import * as routes from 'constants/routes';
 import SignOutButton from 'components/SignOutButton';
-import Button from 'components/Button/Button';
+import Button from 'components/Button';
 import cx from 'classnames';
 import { withRouter } from 'react-router';
 import styles from './layout.module.scss';

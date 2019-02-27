@@ -8,7 +8,7 @@ import SignUpPage from './SignUp';
 import SignInPage from './SignIn';
 import AccountPage from './Account';
 import AdminPage from './Admin';
-import OnboardingPage from './Onboarding';
+import CreateCard from './Create';
 import withSession from './_session/withSession';
 
 
@@ -30,8 +30,8 @@ const App = props => (
         {...props}
       />
       <PublicRoute
-        path="/onboarding/:step"
-        component={OnboardingPage}
+        path="/create"
+        component={CreateCard}
         {...props}
       />
       <PublicRoute

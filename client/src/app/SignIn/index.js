@@ -6,6 +6,7 @@ import cx from 'classnames';
 
 import * as routes from 'constants/routes';
 import ErrorMessage from 'components/Error';
+import Button from 'components/Button';
 import { SignUpLink } from '../SignUp';
 
 const SIGN_IN = gql`
@@ -76,9 +77,9 @@ class SignInForm extends Component {
               type="password"
               placeholder="Password"
             />
-            <button className="w-100 mb-3" disabled={isInvalid || loading} type="submit">
+            <Button className="mb-3" primary block disabled={isInvalid || loading} type="submit">
               Sign In
-            </button>
+            </Button>
 
             {error && <ErrorMessage error={error} />}
           </form>

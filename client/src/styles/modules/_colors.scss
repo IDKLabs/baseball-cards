@@ -1,6 +1,187 @@
-$hawksnavy: #002244;
-$actiongreen: #69BE28;
-$wolfgray: #A5ACAF;
-$gocard: #8c1515;
-$dawgspurple: #4b2e83;
-$mightygold: #e8e3d3;
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+// 3rd party brand colors
+$greenhouse-green: #1bb1a8;
+$google-orange: #db5a3c;
+$linkedin-blue: #0077B5;
+
+// Neutrals
+$white: #fff;
+$black: #000;
+$grey: #787878;
+$midnight-blue: #1f1440;
+$karl-grey: #efeef1;
+
+// App Colors
+$resource-red: #E6294F;
+$tehama-purple: #654BFA;
+$kent-gray: #BCC2D1;
+
+// Brand Colors
+$electric-red: #ff2e57;
+$royal-purple: #7348ff;
+$crystal-blue: #03EAFF;
+$florida-orange: #ff7227;
+$marine-green: #00de9b;
+$banana-yellow: #ffd000;
+$pacific-blue: #006aff;
+$brick-red: #f33e22;
+$tooltip-fill: #472BE1;
+$dark-text: #222222;
+$muted-purple: #78728C;
+
+
+// App Color Shades + Tints
+$resource-red-80: #FF8FA5;
+$resource-red-100: #FF708D;
+$resource-red-200: #FF5274;
+$resource-red-300: #FF335C;
+$resource-red-400: $resource-red;
+$resource-red-500: #C72041;
+$resource-red-600: #A81835;
+$resource-red-700: #8A162D;
+$resource-red-800: #6B1325;
+$resource-red-900: #4D0F1C;
+
+$tehama-purple-20: #F4F2FF;
+$tehama-purple-50: #DED9FF;
+$tehama-purple-90: #BEB3FF;
+$tehama-purple-100: #A899FF;
+$tehama-purple-200: #9380FF;
+$tehama-purple-300: #7D66FF;
+$tehama-purple-400: $tehama-purple;
+$tehama-purple-500: #482DE0;
+$tehama-purple-600: #341CBA;
+$tehama-purple-700: #251294;
+$tehama-purple-800: #16076E;
+$tehama-purple-900: #0B0047;
+
+$kent-gray-10: #FAFBFC;
+$kent-gray-20: #F5F6F7;
+$kent-gray-30: #EDEFF2;
+$kent-gray-40: #E1E4EB;
+$kent-gray-50: #D8DCE6;
+$kent-gray-100: $kent-gray;
+$kent-gray-200: #A8AFBF;
+$kent-gray-300: #939AAB;
+$kent-gray-400: #7B8396;
+$kent-gray-500: #687082;
+$kent-gray-600: #565D6E;
+$kent-gray-700: #444A59;
+$kent-gray-800: #333845;
+$kent-gray-900: #232730;
+
+$florida-orange-20: #FFF3E6;
+$florida-orange-300: #FF8E47;
+$florida-orange-400: $florida-orange;
+$florida-orange-500: #ED5813;
+$florida-orange-600: #E64102;
+$florida-orange-700: #CC3102;
+
+$brick-red-20: #FFDCD6;
+$brick-red-300: #F33E22;
+$brick-red-400: #D4341C;
+$brick-red-500: #B52914;
+$brick-red-600: #8F1C0A;
+
+$marine-green-20: #E6FFF7;
+$marine-green-300: #00DE9B;
+$marine-green-400: #00CB90;
+$marine-green-500: #00B380;
+$marine-green-600: #008354;
+$marine-green-700: #008354;
+
+$pacific-blue-20: #F2F8FF;
+$pacific-blue-200: #3D9BFF;
+$pacific-blue-300: #1F84FF;
+$pacific-blue-400: $pacific-blue;
+
+$crystal-blue-20: #E6FFFC;
+$crystal-blue-50: #C7FFFB;
+$crystal-blue-100: #A3FFFD;
+$crystal-blue-200: #80FBFF;
+$crystal-blue-250: #5CF1FF;
+$crystal-blue-300: #38E4FF;
+$crystal-blue-400: #27C3E6;
+$crystal-blue-500: #0EA0CC;
+$crystal-blue-600: #0080B3;
+$crystal-blue-700: #006699;
+$crystal-blue-800: #004F80;
+
+$banana-yellow-20: #FFF8CC;
+$banana-yellow-50: #FFF199;
+$banana-yellow-100: #FFE866;
+$banana-yellow-200: #FFDD33;
+$banana-yellow-250: #FFD000;
+$banana-yellow-300: #F7BE00;
+$banana-yellow-400: #F2AE00;
+$banana-yellow-500: #ED9E00;
+$banana-yellow-600: #E68E00;
+$banana-yellow-700: #E07F00;
+
+
+// $electric-red Tints & Shades
+$electric-red-lighten-1: tint($electric-red, 5%);
+$electric-red-lighten-2: tint($electric-red, 20%);
+$electric-red-lighten-3: tint($electric-red, 24%);
+$electric-red-lighten-4: tint($electric-red, 60%);
+$electric-red-lighten-5: tint($electric-red, 90%);
+$electric-red-darken-1: shade($electric-red, 5%);
+$electric-red-darken-2: shade($electric-red, 10%);
+$electric-red-darken-3: shade($electric-red, 20%);
+$electric-red-darken-4: shade($electric-red, 40%);
+$electric-red-darken-5: shade($electric-red, 60%);
+
+$colorMap: (
+  'resourceRed': $resource-red,
+  'electricRed': $electric-red,
+  'royalPurple': $royal-purple,
+  'crystalBlue': $crystal-blue,
+  'floridaOrange': $florida-orange,
+  'marineGreen': $marine-green,
+  'bananaYellow': $banana-yellow,
+  'pacificBlue': $pacific-blue,
+  'brickRed': $brick-red,
+  'white': $white,
+  'black': $black,
+  'midnightBlue': $midnight-blue,
+  'karlGrey': $karl-grey,
+  'grey': $grey,
+);
+
+// CAMPAIGN STATUSES
+$campaignStatusDraftBg: $florida-orange-20;
+$campaignStatusDraftColor: $florida-orange;
+$campaignStatusArchivedBg: $kent-gray-30;
+$campaignStatusArchivedColor: $kent-gray-400;
+$campaignStatusActiveBg: $tehama-purple-20;
+$campaignStatusActiveColor: $tehama-purple-500;
+$campaignStatusPausedBg: $brick-red-20;
+$campaignStatusPausedColor: $brick-red-400;
+
+// CAMPAIGN METRICS
+$sourcedColor: $kent-gray-800;
+$contactedColor: $kent-gray-600;
+$openedColor: $tehama-purple-500;
+$repliedColor: $pacific-blue;
+$interestedColor: $marine-green-500;
+$futureInterestColor: $banana-yellow-400;
+
+// DEPRECATED COLORS
+$og-resource-blue-tint10: #0088CC;
+$og-resource-blue: #0B7FB4;
+$og-resource-blue-shade10: #096792;
+$og-resource-blue-shade20: #005D82;
+$og-resource-blue-shade30: #083A66;
+$translucent-light-blue: rgba(139, 216, 255, .2);
+$og-resource-green: #4CAF50;
+$og-resource-pink: #fa5c63;
+$og-resource-orange: #ff9800;
+$og-resource-red: #e51c23;
+$og-resource-rust: #CF4C52;
