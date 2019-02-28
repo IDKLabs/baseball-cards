@@ -7,9 +7,11 @@
     "node": "10.11.0"
   },
   "scripts": {
+    "dev": "concurrently \"npm run server:dev\" \"npm run client\"",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "client": "node start-client.js",
-    "server": "nodemon --exec babel-node server/index.js",
+    "server": "babel-node server/index.js",
+    "server:dev": "nodemon --exec babel-node server/index.js",
     "test:run-server": "TEST_DATABASE_URL=mongodb://localhost:27017/mytestdatabase npm start",
     "test:execute-test": "TEST_DATABASE_URL=mongodb://localhost:27017/mytestdatabase mocha --require @babel/register 'src/**/*.spec.js'",
     "test": "echo \"No test specified\" && exit 0"
@@ -55,7 +57,9 @@
     "graphql-resolvers": "^0.3.2",
     "jsonwebtoken": "^8.4.0",
     "lodash": "^4.17.11",
+    "nodemon": "^1.18.7",
     "mongoose": "^5.3.14",
+    "morgan": "^1.9.1",
     "uuid": "^3.3.2",
     "validator": "^10.9.0"
   }
