@@ -38,11 +38,19 @@ const FormCapture = ({ stage, ...props }) => {
   }
 
   if (stage === StageEnum.AWAITING_RESPONSE) {
-    comp = <Awaiting {...props} />;
+    if (!props.userEmail) {
+      comp = <p>Hang tight...</p>;
+    } else {
+      comp = <Awaiting {...props} />;
+    }
   }
 
   if (stage === StageEnum.SUCCESS) {
-    comp = <Result {...props} />;
+    if (!props.userEmail) {
+      comp = <p>Error</p>;
+    } else {
+      comp = <Result {...props} />;
+    }
   }
 
   return (
@@ -53,13 +61,16 @@ const FormCapture = ({ stage, ...props }) => {
 };
 
 export default compose(
-  withState('stage', 'setStage', StageEnum.START),
+  withState('stage', 'setStage', StageEnum.SUCCESS),
+  withState('userEmail', 'setUserEmail', 'emmy@resource.io'),
   withHandlers({
     onStartClick: props => ({ email }) => {
       const {
         setStage,
+        setUserEmail,
       } = props;
       window.open(`https://marcuslowe.typeform.com/to/kDQzo7?source=site&email=${email}`);
+      setUserEmail(email);
       setStage(StageEnum.AWAITING_RESPONSE);
     },
     onAwaitCancel: props => () => {

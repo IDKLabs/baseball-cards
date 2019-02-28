@@ -8,13 +8,21 @@ import {
 import { graphql } from 'react-apollo';
 import Block from 'components/Block';
 import Button from 'components/Button';
+import gql from 'graphql-tag';
 import data from './testdata';
 import styles from './card-styles.module.scss';
 
-const cleanData = (_data) => {
-  const string = JSON.stringify(data);
-  const obj = JSON.parse(string);
-  return obj;
+const GET_TYPEFORM_RESPONSE = gql`
+  query($email: String!) {
+    typeformResponse(email: $email)
+  }
+`;
+
+const cleanData = (props) => {
+  const { typeformResponse } = props;
+  // const string = JSON.stringify(typeformResponse);
+  const obj = JSON.parse(typeformResponse);
+  return obj[0];
 };
 
 const Facts = _props => (
@@ -38,8 +46,9 @@ const Facts = _props => (
   </div>
 );
 
-const Result = (props) => {
-  console.log(cleanData());
+const Result = ({ loading, ...props }) => {
+  if (loading) return <p>Loading</p>;
+  console.log(cleanData(props));
 
   return (
     <React.Fragment>
@@ -95,5 +104,18 @@ const Result = (props) => {
 };
 
 export default compose(
-  withState('email', 'setEmail', ''),
+  graphql(GET_TYPEFORM_RESPONSE, {
+    options: ({ userEmail }) => {
+      console.log(userEmail);
+      return {
+        variables: {
+          email: userEmail,
+        },
+      };
+    },
+    props: ({ data }) => {
+      console.log('..');
+      return data;
+    },
+  }),
 )(Result);
