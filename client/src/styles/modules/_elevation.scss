@@ -1,11 +1,11 @@
-$default-bx: rgba(100, 100, 100, 0.1);
+$default-bx: rgba(120, 120, 120, 0.1);
 
 @mixin ev-1($color: $default-bx) {
   box-shadow: 0 1px 2px 0 $color;
 }
 
 @mixin ev-2($color: $default-bx) {
-  box-shadow: 0 2px 3px 0 $color;
+  box-shadow: 0 2px 10px 0 $color;
 }
 
 @mixin ev-4($color: $default-bx) {

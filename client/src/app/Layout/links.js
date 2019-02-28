@@ -40,6 +40,7 @@ export const defaultLinks = ({ isLoggedIn, isAdmin, ..._props }) => (
       styleNames: [],
       attrs: {
         action: true,
+        small: true,
       },
     },
     {
@@ -48,6 +49,7 @@ export const defaultLinks = ({ isLoggedIn, isAdmin, ..._props }) => (
       styleNames: [],
       attrs: {
         link: true,
+        small: true,
       },
     }],
   } : {
