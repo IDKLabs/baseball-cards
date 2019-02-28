@@ -7,6 +7,11 @@
   border-radius: 10px;
   padding: 5px;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  font-family: "Lato", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;;
 
   label {
     text-transform: uppercase;
@@ -21,6 +26,7 @@
 }
 
 .cardContainer {
+  flex: 1;
   display: flex;
   flex-direction: column;
   border: 1px solid grey;
@@ -31,23 +37,39 @@
 }
 
 
-.header {
+.upper {
   display: flex;
   flex-grow: 1;
-  min-height: 230px;
 }
 
 .image {
   height: 200px;
   width: 200px;
-  background-color: yellow;
+  background-color: grey;
   margin-bottom: 10px;
+  border-radius: 3px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.id {
+  h2 { margin: 0; }
+  display: flex;
+  align-items: center;
+  small {
+    margin-left: 5px;
+    span {
+      margin: 0 5px;
+    }
+  }
 }
 
 .name {
   text-transform: uppercase;
   font-family: "Courier";
   font-weight: 400;
+  @include overflow-ellipsis;
 }
 
 .skills {
@@ -60,32 +82,30 @@
 
 .skill {
   text-align: center;
+  flex: 1 0 33%;
   .emoji {
     font-size: 40px;
+  }
+  .skilltxt {
+    @include overflow-ellipsis;
   }
 }
 
 .chunk {
   flex-shrink: 1;
-  // margin-top: 20px;
   overflow: scroll;
   border-top: 1px solid $list-group-border;
-  // justify-content: center;
-  // align-items: center;
 }
 
 .facts {
   text-align: right;
   flex: 1 0 94px;
-  // margin: 20px 0;
+}
+
+.fact p {
+  @include overflow-ellipsis;
 }
 
 .fact, .answer {
   margin: 10px 0;
 }
-
-.strengths {
-
-}
-
-

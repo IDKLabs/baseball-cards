@@ -3,13 +3,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import {
-  compose, branch, withState, withHandlers,
+  compose, withState, withHandlers,
 } from 'recompose';
-import { graphql } from 'react-apollo';
 import Block from 'components/Block';
 import Button from 'components/Button';
 import Start from './Start';
 import Result from './Result';
+
+export const SURVEY_URL = 'https://marcuslowe.typeform.com/to/kDQzo7';
 
 const StageEnum = Object.freeze({
   START: 'START',
@@ -18,9 +19,13 @@ const StageEnum = Object.freeze({
   FAIL: 'FAIL',
 });
 
-const Awaiting = ({ onAwaitCancel, onAwaitContinue }) => (
+const Awaiting = ({ onAwaitCancel, onAwaitContinue, onStartClick }) => (
   <React.Fragment>
-    <p><i className="fas fa-circle-notch fa-spin text-muted" /> Waiting on form...</p>
+    <p><i className="fas fa-circle-notch fa-spin text-muted" /> Waiting on questionnaire...</p>
+
+    <p>Be sure to finish the questionnaire before continuing. Need to start over?
+      <a style={{ cursor: 'pointer' }} onClick={onStartClick}> Click here</a>
+    </p>
     <div className={cx('d-flex')}>
       <Button link onClick={onAwaitCancel}>Cancel</Button>
       &nbsp;
@@ -30,8 +35,6 @@ const Awaiting = ({ onAwaitCancel, onAwaitContinue }) => (
 );
 
 const FormCapture = ({ stage, ...props }) => {
-  console.log('FORMCAP');
-  console.log(props);
   let comp;
   if (stage === StageEnum.START) {
     comp = <Start {...props} />;
@@ -39,18 +42,16 @@ const FormCapture = ({ stage, ...props }) => {
 
   if (stage === StageEnum.AWAITING_RESPONSE) {
     if (!props.userEmail) {
-      comp = <p>Hang tight...</p>;
-    } else {
-      comp = <Awaiting {...props} />;
+      props.setStage(StageEnum.START);
     }
+    comp = <Awaiting {...props} />;
   }
 
   if (stage === StageEnum.SUCCESS) {
     if (!props.userEmail) {
-      comp = <p>Error</p>;
-    } else {
-      comp = <Result {...props} />;
+      props.setStage(StageEnum.START);
     }
+    comp = <Result {...props} />;
   }
 
   return (
@@ -61,17 +62,23 @@ const FormCapture = ({ stage, ...props }) => {
 };
 
 export default compose(
-  withState('stage', 'setStage', StageEnum.SUCCESS),
-  withState('userEmail', 'setUserEmail', 'emmy@resource.io'),
+  withState('stage', 'setStage', StageEnum.START),
+  withState('userEmail', 'setUserEmail', ''),
   withHandlers({
-    onStartClick: props => ({ email }) => {
+    onStartClick: props => ({ email: newEmail }) => {
       const {
         setStage,
         setUserEmail,
+        userEmail,
       } = props;
-      window.open(`https://marcuslowe.typeform.com/to/kDQzo7?source=site&email=${email}`);
-      setUserEmail(email);
-      setStage(StageEnum.AWAITING_RESPONSE);
+      const email = newEmail || userEmail;
+      if (!email) {
+        setStage(StageEnum.START);
+      } else {
+        window.open(`${SURVEY_URL}?source=site&email=${email}`);
+        setUserEmail(email);
+        setStage(StageEnum.AWAITING_RESPONSE);
+      }
     },
     onAwaitCancel: props => () => {
       const {

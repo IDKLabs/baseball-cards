@@ -123,3 +123,9 @@ $grid-breakpoints: (
   lg: 992px + $navbar-width,
   xl: 1200px + $navbar-width
 );
+
+@mixin overflow-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
