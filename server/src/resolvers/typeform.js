@@ -16,7 +16,10 @@ export default {
     typeformResponse: async (parent, { email }) => {
       const responses = await typeformAPI
         .responses.list({ uid: 'kDQzo7' });
-      return JSON.stringify(responses.items.filter(form => _.get(form, 'hidden.email', '') === email));
+      const response = responses.items.filter(form => _.get(form, 'hidden.email', '') === email);
+      const survey = await typeformAPI.forms.get({ uid: 'kDQzo7' });
+      console.log(survey);
+      return JSON.stringify({ response, survey });
     },
   },
 
