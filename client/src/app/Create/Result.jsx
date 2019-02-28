@@ -8,29 +8,92 @@ import {
 import { graphql } from 'react-apollo';
 import Block from 'components/Block';
 import Button from 'components/Button';
+import data from './testdata';
+import styles from './card-styles.module.scss';
 
-function isValidEmail(emailAddress) {
-  const pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-  return pattern.test(emailAddress);
-}
+const cleanData = (_data) => {
+  const string = JSON.stringify(data);
+  const obj = JSON.parse(string);
+  return obj;
+};
 
-const Start = ({ onStartClick, email, setEmail }) => (
-  <React.Fragment>
-    <h1>✨ Create a card</h1>
-    <p>You'll fill out a quick survey to create content for your card.</p>
-    <p className="mb-1">First, enter your email:</p>
-    <input className="mb-4" name="email" onChange={e => setEmail(e.target.value)} value={email} />
-    <Button
-      disabled={!isValidEmail(email)}
-      action
-      wide
-      onClick={() => onStartClick({ email })}
-    >
-      Let's get started &nbsp;<i className="small fas fa-external-link-alt" />
-    </Button>
-  </React.Fragment>
+const Facts = _props => (
+  <div className={cx(styles.facts)}>
+    <div className={cx(styles.hogwarts, styles.fact)}>
+      <label>Hogwarts House</label>
+      <p className={cx(styles.house)}>Gryffindor</p>
+    </div>
+    <div className={cx(styles.myers, styles.fact)}>
+      <label>Myers-Briggs</label>
+      <p className={cx(styles.house)}>ENFP</p>
+    </div>
+    <div className={cx(styles.enneagram, styles.fact)}>
+      <label>Enneagram</label>
+      <p className={cx(styles.house)}>Achiever (3)</p>
+    </div>
+    <div className={cx(styles.emoji, styles.fact)}>
+      <label>Favorite Emoji</label>
+      <p className={cx(styles.house)}>🙂</p>
+    </div>
+  </div>
 );
+
+const Result = (props) => {
+  console.log(cleanData());
+
+  return (
+    <React.Fragment>
+      <h1>Your card</h1>
+
+      <div className={cx(styles.card)}>
+        <div className={cx(styles.cardContainer)}>
+          <div className={cx(styles.header)}>
+            <div>
+              <div className={cx(styles.image)} />
+              <h2 className={cx(styles.name)}>Emmy Armintrout</h2>
+            </div>
+
+            <Facts {...props} />
+          </div>
+          <div className={cx(styles.skills)}>
+            <div className={cx(styles.skill)}>
+              <span className={cx(styles.emoji)} role="img">🔥</span>
+              <p className={cx(styles.skilltxt)}>Engineering</p>
+            </div>
+            <div className={cx(styles.skill)}>
+              <span className={cx(styles.emoji)} role="img">🔥</span>
+              <p className={cx(styles.skilltxt)}>Engineering</p>
+            </div>
+            <div className={cx(styles.skill)}>
+              <span className={cx(styles.emoji)} role="img">🔥</span>
+              <p className={cx(styles.skilltxt)}>Engineering</p>
+            </div>
+          </div>
+
+          <div className={cx(styles.chunk, 'd-flex')}>
+            <div className={cx(styles.answers)}>
+              <div className={cx(styles.strengths, styles.answer)}>
+                <label>Stengths</label>
+                <p className={cx(styles.house)}>Lorem ipsum. Lorem ipsum lorem lorem. Lorem ipsum. Lorem ipsum lorem lorem. Lorem ipsum. Lorem ipsum lorem lorem. Lorem ipsum. Lorem ipsum lorem lorem.</p>
+              </div>
+
+              <div className={cx(styles.weaknesses, styles.answer)}>
+                <label>Weaknesses</label>
+                <p className={cx(styles.house)}>Lorem ipsum. Lorem ipsum lorem lorem. Lorem ipsum. Lorem ipsum lorem lorem. Lorem ipsum. Lorem ipsum lorem lorem. Lorem ipsum. Lorem ipsum lorem lorem.</p>
+              </div>
+
+              <div className={cx(styles.goals, styles.answer)}>
+                <label>Goals</label>
+                <p className={cx(styles.house)}>Lorem ipsum. Lorem ipsum lorem lorem. Lorem ipsum. Lorem ipsum lorem lorem. Lorem ipsum. Lorem ipsum lorem lorem. Lorem ipsum. Lorem ipsum lorem lorem.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </React.Fragment>
+  );
+};
 
 export default compose(
   withState('email', 'setEmail', ''),
-)(Start);
+)(Result);

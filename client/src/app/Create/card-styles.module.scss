@@ -1,0 +1,91 @@
+@import "styles/variables.scss";
+
+.card {
+  height: 600px;
+  width: 400px;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 5px;
+  text-align: left;
+
+  label {
+    text-transform: uppercase;
+    font-size: 10px;
+    color: $text-muted;
+    line-height: 1;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid grey;
+  padding: 10px;
+  border-radius: 5px;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+
+.header {
+  display: flex;
+  flex-grow: 1;
+  min-height: 230px;
+}
+
+.image {
+  height: 200px;
+  width: 200px;
+  background-color: yellow;
+  margin-bottom: 10px;
+}
+
+.name {
+  text-transform: uppercase;
+  font-family: "Courier";
+  font-weight: 400;
+}
+
+.skills {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  min-height: 100px;
+  align-items: center;
+}
+
+.skill {
+  text-align: center;
+  .emoji {
+    font-size: 40px;
+  }
+}
+
+.chunk {
+  flex-shrink: 1;
+  // margin-top: 20px;
+  overflow: scroll;
+  border-top: 1px solid $list-group-border;
+  // justify-content: center;
+  // align-items: center;
+}
+
+.facts {
+  text-align: right;
+  flex: 1 0 94px;
+  // margin: 20px 0;
+}
+
+.fact, .answer {
+  margin: 10px 0;
+}
+
+.strengths {
+
+}
+
+

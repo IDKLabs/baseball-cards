@@ -9,6 +9,7 @@ import { graphql } from 'react-apollo';
 import Block from 'components/Block';
 import Button from 'components/Button';
 import Start from './Start';
+import Result from './Result';
 
 const StageEnum = Object.freeze({
   START: 'START',
@@ -17,10 +18,14 @@ const StageEnum = Object.freeze({
   FAIL: 'FAIL',
 });
 
-const Awaiting = ({ onAwaitCancel }) => (
+const Awaiting = ({ onAwaitCancel, onAwaitContinue }) => (
   <React.Fragment>
     <p><i className="fas fa-circle-notch fa-spin text-muted" /> Waiting on form...</p>
-    <Button link onClick={onAwaitCancel}>Cancel</Button>
+    <div className={cx('d-flex')}>
+      <Button link onClick={onAwaitCancel}>Cancel</Button>
+      &nbsp;
+      <Button action onClick={onAwaitContinue}>I'm done</Button>
+    </div>
   </React.Fragment>
 );
 
@@ -34,6 +39,10 @@ const FormCapture = ({ stage, ...props }) => {
 
   if (stage === StageEnum.AWAITING_RESPONSE) {
     comp = <Awaiting {...props} />;
+  }
+
+  if (stage === StageEnum.SUCCESS) {
+    comp = <Result {...props} />;
   }
 
   return (
@@ -58,6 +67,12 @@ export default compose(
         setStage,
       } = props;
       setStage(StageEnum.START);
+    },
+    onAwaitContinue: props => () => {
+      const {
+        setStage,
+      } = props;
+      setStage(StageEnum.SUCCESS);
     },
   }),
 )(FormCapture);
