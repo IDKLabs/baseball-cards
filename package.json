@@ -4,7 +4,11 @@
   "description": "quick fullstack react/apollo/graphql/express/mongoose/mongodb app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon --exec babel-node server/src/index.js",
+    "client": "node start-client.js",
+    "dev": "echo \"This command has been deprecated. Use 'npm start'\" && exit 1",
+    "lint": "eslint ."
   },
   "author": "Emmy Armintrout",
   "license": "ISC",
@@ -32,6 +36,9 @@
   },
   "dependencies": {
     "@typeform/api-client": "^1.3.0",
-    "lodash": "^4.17.11"
+    "babel-cli": "^6.26.0",
+    "concurrently": "^4.1.0",
+    "lodash": "^4.17.11",
+    "nodemon": "^1.18.10"
   }
 }
