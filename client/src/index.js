@@ -17,7 +17,7 @@ import { signOut } from 'components/SignOutButton';
 
 const apiEndpoint = process.env.NODE_ENV === 'production'
   ? 'teamagram1.herokuapp.com'
-  : 'localhost:8000/graphql';
+  : 'localhost:8000';
 
 const httpLink = new HttpLink({
   uri: `http://${apiEndpoint}/graphql`,
