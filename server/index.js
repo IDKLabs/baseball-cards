@@ -28,8 +28,8 @@ if (process.env.NODE_ENV === 'production') {
   console.log('DIRNAME IS', __dirname);
   app.use(express.static('client/build'));
   app.get('*', (req, res) => {
-    // res.sendFile('client/build/index.html');
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    res.sendFile('/app/client/build/index.html');
+    // res.sendFile(path.resolve(__dirname, '..', 'client', 'build', 'index.html'));
   });
   // app.get('/cool', (req, res) => {
   //   res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
