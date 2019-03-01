@@ -58,6 +58,8 @@ class SignUpForm extends Component {
       passwordConfirmation,
     } = this.state;
 
+    console.log(this.state);
+
     const isInvalid = password !== passwordConfirmation
       || password === ''
       || email === ''
