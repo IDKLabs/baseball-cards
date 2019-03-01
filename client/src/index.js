@@ -15,11 +15,11 @@ import App from 'app/Controller';
 import { signOut } from 'components/SignOutButton';
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:8000/graphql',
+  uri: `http://localhost:${process.env.PORT || '8000'}/graphql`,
 });
 
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:8000/graphql`,
+  uri: `ws://localhost:${process.env.PORT || '8000'}/graphql`,
   options: {
     reconnect: true,
   },
