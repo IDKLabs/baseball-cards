@@ -34,7 +34,6 @@
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
     "mocha": "^5.2.0",
-    "morgan": "^1.9.1",
     "nodemon": "^1.18.10"
   },
   "dependencies": {
@@ -58,6 +57,7 @@
     "jsonwebtoken": "^8.4.0",
     "lodash": "^4.17.11",
     "mongoose": "^5.3.14",
+    "morgan": "^1.9.1",
     "uuid": "^3.3.2",
     "validator": "^10.9.0"
   }
