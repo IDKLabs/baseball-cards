@@ -25,6 +25,8 @@ const wsLink = new WebSocketLink({
   },
 });
 
+console.log(`CLIENT connecting to graphql api http://localhost:${process.env.PORT || '8000'}/graphql`);
+
 const terminatingLink = split(
   ({ query }) => {
     const { kind, operation } = getMainDefinition(query);
