@@ -10,10 +10,12 @@ import {
   AuthenticationError,
 } from 'apollo-server-express';
 
+import path from 'path';
 import schema from './schema';
 import resolvers from './resolvers';
 import models, { connectDb } from './models';
 import loaders from './loaders';
+
 
 const app = express();
 
@@ -23,10 +25,11 @@ app.use(morgan('dev'));
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
-  app.get('*', (req, res) => {
-    res.sendFile('index.html');
-  });
 }
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+});
 
 const getMe = async (req) => {
   const token = req.headers['x-token'];
