@@ -32,9 +32,27 @@ const parseAnswer = (answer) => {
   return answerVal;
 };
 
+export const parseAnswers = ({ answers }) => answers.reduce((acc, answer) => {
+  const key = QuestionEnum[answer.field.id];
+  if (!key) {
+    console.warn('answer missing q id:');
+    console.log(answer);
+    return acc;
+  }
+  const answerValue = parseAnswer(answer);
+  if (!answerValue) return acc;
+  return {
+    ...acc,
+    [key]: answerValue,
+  };
+}, {});
+
 export default (props) => {
   const { typeformResponse } = props;
-  const obj = JSON.parse(typeformResponse);
+  let obj = typeformResponse;
+  if (typeof obj === 'string') {
+    obj = JSON.parse(typeformResponse);
+  }
   if (!_.get(obj, 'response.0')) {
     return null;
   }
@@ -47,20 +65,7 @@ export default (props) => {
     survey: obj.survey,
   };
 
-  const answers = data.response.answers.reduce((acc, answer) => {
-    const key = QuestionEnum[answer.field.id];
-    if (!key) {
-      console.warn('answer missing q id:');
-      console.log(answer);
-      return acc;
-    }
-    const answerValue = parseAnswer(answer);
-    if (!answerValue) return acc;
-    return {
-      ...acc,
-      [key]: answerValue,
-    };
-  }, {});
+  const answers = parseAnswers(data.response);
 
   console.log(answers);
   return answers;

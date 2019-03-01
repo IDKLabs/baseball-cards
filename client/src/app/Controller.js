@@ -9,6 +9,7 @@ import SignInPage from './SignIn';
 import AccountPage from './Account';
 import AdminPage from './Admin';
 import CreateCard from './Create';
+import Team from './Team';
 import withSession from './_session/withSession';
 
 
@@ -32,6 +33,11 @@ const App = props => (
       <PublicRoute
         path="/create"
         component={CreateCard}
+        {...props}
+      />
+      <PublicRoute
+        path="/team"
+        component={Team}
         {...props}
       />
       <PublicRoute
