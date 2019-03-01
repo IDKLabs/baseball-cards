@@ -13,7 +13,9 @@ import Team from './Team';
 import withSession from './_session/withSession';
 
 
-import { AdminRoute, PrivateRoute, PublicRoute } from './Route';
+import {
+  AdminRoute, PrivateRoute, PublicRoute, UniversalRoute,
+} from './Route';
 
 const App = props => (
   <Router history={history}>
@@ -35,7 +37,7 @@ const App = props => (
         component={CreateCard}
         {...props}
       />
-      <PublicRoute
+      <UniversalRoute
         path="/team"
         component={Team}
         {...props}

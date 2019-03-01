@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 import cx from 'classnames';
 import * as routes from 'constants/routes';
 import ErrorMessage from 'components/Error';
+import Button from 'components/Button';
 
 const SIGN_UP = gql`
   mutation($username: String!, $email: String!, $password: String!) {
@@ -29,7 +30,11 @@ const SignUpPage = ({ history, refetch }) => (
 );
 
 class SignUpForm extends Component {
-  state = { ...INITIAL_STATE };
+  state = {
+    ...INITIAL_STATE,
+    email: this.props.email || '',
+    username: this.props.fullName || '',
+  };
 
   onChange = (event) => {
     const { name, value } = event.target;
@@ -57,8 +62,6 @@ class SignUpForm extends Component {
       password,
       passwordConfirmation,
     } = this.state;
-
-    console.log(this.state);
 
     const isInvalid = password !== passwordConfirmation
       || password === ''
@@ -104,9 +107,9 @@ class SignUpForm extends Component {
               type="password"
               placeholder="Confirm Password"
             />
-            <button disabled={isInvalid || loading} type="submit">
-              Sign Up
-            </button>
+            <Button type="submit" disabled={isInvalid || loading} action wide className="mt-3">
+              { this.props.cta || 'Sign Up' }
+            </Button>
 
             {error && <ErrorMessage error={error} />}
           </form>

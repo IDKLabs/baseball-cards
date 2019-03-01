@@ -5,20 +5,20 @@ import { AuthenticationError, UserInputError } from 'apollo-server';
 import { isAdmin, isAuthenticated } from './authorization';
 
 const createToken = async (user, secret, expiresIn) => {
-  const { id, email, username, role } = user;
-  return await jwt.sign({ id, email, username, role }, secret, {
+  const {
+    id, email, username, role,
+  } = user;
+  return await jwt.sign({
+    id, email, username, role,
+  }, secret, {
     expiresIn,
   });
 };
 
 export default {
   Query: {
-    users: async (parent, args, { models }) => {
-      return await models.User.find();
-    },
-    user: async (parent, { id }, { models }) => {
-      return await models.User.findById(id);
-    },
+    users: async (parent, args, { models }) => await models.User.find(),
+    user: async (parent, { id }, { models }) => await models.User.findById(id),
     me: async (parent, args, { models, me }) => {
       if (!me) {
         return null;
@@ -52,14 +52,14 @@ export default {
 
       if (!user) {
         throw new UserInputError(
-          'No user found with this login credentials.',
+          'No user found with this email. Need to sign up?',
         );
       }
 
       const isValid = await user.validatePassword(password);
 
       if (!isValid) {
-        throw new AuthenticationError('Invalid password.');
+        throw new AuthenticationError('Incorrect password.');
       }
 
       return { token: createToken(user, secret, '30m') };
@@ -67,13 +67,11 @@ export default {
 
     updateUser: combineResolvers(
       isAuthenticated,
-      async (parent, { username }, { models, me }) => {
-        return await models.User.findByIdAndUpdate(
-          me.id,
-          { username },
-          { new: true },
-        );
-      },
+      async (parent, { username }, { models, me }) => await models.User.findByIdAndUpdate(
+        me.id,
+        { username },
+        { new: true },
+      ),
     ),
 
     deleteUser: combineResolvers(
@@ -84,18 +82,15 @@ export default {
         if (user) {
           await user.remove();
           return true;
-        } else {
-          return false;
         }
+        return false;
       },
     ),
   },
 
   User: {
-    messages: async (user, args, { models }) => {
-      return await models.Message.find({
-        userId: user.id,
-      });
-    },
+    messages: async (user, args, { models }) => await models.Message.find({
+      userId: user.id,
+    }),
   },
 };

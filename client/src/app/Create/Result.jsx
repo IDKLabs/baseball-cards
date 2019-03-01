@@ -14,6 +14,7 @@ import styles from './card-styles.module.scss';
 import { SURVEY_URL } from './FormCapture';
 import cleanData from './parse-data';
 import Card from './Card';
+import { StageEnum } from './index.js';
 
 const GET_TYPEFORM_RESPONSE = gql`
   query($email: String!) {
@@ -21,16 +22,23 @@ const GET_TYPEFORM_RESPONSE = gql`
   }
 `;
 
-const Result = ({ loading, userEmail, ...props }) => {
+const Result = ({
+  loading, userEmail, setStage, setUserName, ...props
+}) => {
   if (loading) return <Loading />;
   const data = cleanData(props);
   if (!data) return <div>Not found :(</div>;
+  if (setUserName) {
+    setUserName(data.NAME);
+  }
 
   return (
     <React.Fragment>
       <h1>Your card</h1>
 
       <Card data={data} />
+
+      { setStage && <Button onClick={() => setStage(StageEnum.SIGN_UP_TO_SAVE)}>Save your card</Button> }
 
       <p className="mt-4 mb-1">Copy html for your card here:</p>
       <textarea
@@ -48,7 +56,7 @@ export default compose(
       console.log(userEmail);
       return {
         variables: {
-          email: 'emmyxx@resource.io',
+          email: userEmail,
         },
       };
     },

@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 
+import mongoose from 'mongoose';
 import * as api from './api';
 import models, { connectDb } from '../models';
-import mongoose from 'mongoose';
 
 let db;
 let expectedUsers;
@@ -133,7 +133,7 @@ describe('users', () => {
     it('signs up a user, updates a user and deletes the user as admin', async () => {
       // sign up
 
-      let {
+      const {
         data: {
           data: {
             signUp: { token },
@@ -264,7 +264,7 @@ describe('users', () => {
         password: 'dontknow',
       });
 
-      expect(errors[0].message).to.eql('Invalid password.');
+      expect(errors[0].message).to.eql('Incorrect password.');
     });
   });
 
@@ -277,7 +277,7 @@ describe('users', () => {
     });
 
     expect(errors[0].message).to.eql(
-      'No user found with this login credentials.',
+      'No user found with this email. Need to sign up?',
     );
   });
 });

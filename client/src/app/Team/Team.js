@@ -29,6 +29,7 @@ const Team = ({
   if (loading) {
     return <Loading />;
   }
+  console.log(props);
   const domain = _.get(props, 'match.params.domain');
   const datum = parseData(props);
   if (!datum.length) {
@@ -45,7 +46,7 @@ const Team = ({
       </div>
 
       <div className={cx('d-flex justify-content-center mt-4')}>
-        <Button action to="/create">Create your own</Button>
+        { !_.get(props, 'session.me') && <Button action to="/create">Create your own</Button> }
       </div>
 
       <Popup size="sm" hidden={!popupData} close={() => setPopupData(null)}>

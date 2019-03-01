@@ -7,9 +7,9 @@ import Team from './Team';
 const NoTeam = () => <p>Not sure what team you're looking for :(</p>;
 
 
-const Page = () => (
+const Page = props => (
   <Switch>
-    <Route exact path="/team/:domain" component={Team} />
+    <Route exact path="/team/:domain" component={() => <Team {...props} />} />
     <Route exact path="/team" component={NoTeam} />
   </Switch>
 );

@@ -3,7 +3,7 @@ import * as routes from 'constants/routes';
 export const LinkEnum = Object.freeze({
   LANDING: {
     to: routes.LANDING,
-    title: 'Home',
+    title: '🏠',
   },
   ACCOUNT: {
     to: routes.ACCOUNT,
@@ -42,19 +42,28 @@ export const defaultLinks = ({ isLoggedIn, isAdmin, ..._props }) => (
         action: true,
         small: true,
       },
+    }, {
+      ...LinkEnum.SIGN_IN,
+      kind: 'button',
+      styleNames: [],
+      attrs: {
+        link: true,
+        small: true,
+      },
     }],
   } : {
     groupOne: [{
       ...LinkEnum.LANDING,
       styleNames: [],
     }],
-    groupTwo: [{
-      ...LinkEnum.ACCOUNT,
-    },
-    ...isAdmin ? [{
-      ...LinkEnum.ADMIN,
-    }] : [],
-    {
-      ...LinkEnum.LOG_OUT,
-    }],
+    groupTwo: [
+    // {
+    //   ...LinkEnum.ACCOUNT,
+    // },
+      ...isAdmin ? [{
+        ...LinkEnum.ADMIN,
+      }] : [],
+      {
+        ...LinkEnum.LOG_OUT,
+      }],
   });

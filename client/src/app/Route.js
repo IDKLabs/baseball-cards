@@ -8,7 +8,20 @@ const renderPage = ({ Component, Layout = AppLayout, ...props }) => (
   <Layout {...props}>
     <Component {...props} />
   </Layout>
-)
+);
+
+export const UniversalRoute = ({ component: Component, ...rest }) => {
+  function render(props) {
+    return renderPage({ Component, ...rest });
+  }
+
+  return (
+    <Route
+      {...rest}
+      render={render}
+    />
+  );
+};
 
 export const AdminRoute = ({ component: Component, ...rest }) => {
   function render(props) {
@@ -31,7 +44,7 @@ export const PrivateRoute = ({ component: Component, ...rest }) => {
     if (_.get(rest, 'session.me')) {
       return renderPage({ Component, ...rest });
     }
-    return <Redirect to={routes.SIGN_IN} />;
+    return <Redirect to={routes.CREATE} />;
   }
 
   return (
@@ -45,7 +58,7 @@ export const PrivateRoute = ({ component: Component, ...rest }) => {
 export const PublicRoute = ({ component: Component, ...rest }) => {
   function render(props) {
     if (_.get(rest, 'session.me')) {
-      return <Redirect to={routes.LANDING} />
+      return <Redirect to={routes.LANDING} />;
     }
     return renderPage({ Component, ...rest });
   }

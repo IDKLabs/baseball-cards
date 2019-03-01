@@ -1,13 +1,15 @@
 import React from 'react';
-import { MessageCreate, Messages } from 'components/Message';
+// import { MessageCreate, Messages } from 'components/Message';
+import Block from 'components/Block';
+import Button from 'components/Button';
+import Result from '../Create/Result';
 
 const Landing = ({ session }) => (
-  <div>
-    <h2>Landing Page</h2>
+  <Block>
+    <Result userEmail={session.me.email} />
 
-    {session && session.me && <MessageCreate />}
-    <Messages limit={2} />
-  </div>
+    <Button className="mt-4" action to={`/team/${session.me.email.split('@')[1]}`}>View team cards</Button>
+  </Block>
 );
 
 export default Landing;
