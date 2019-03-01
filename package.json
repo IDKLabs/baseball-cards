@@ -13,8 +13,7 @@
     "server:dev": "nodemon --exec babel-node server/index.js",
     "test:run-server": "TEST_DATABASE_URL=mongodb://localhost:27017/mytestdatabase npm start",
     "test:execute-test": "TEST_DATABASE_URL=mongodb://localhost:27017/mytestdatabase mocha --require @babel/register 'src/**/*.spec.js'",
-    "test": "echo \"No test specified\" && exit 0",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "test": "echo \"No test specified\" && exit 0"
   },
   "keywords": [],
   "author": "Emmy Armintrout",
