@@ -42,15 +42,6 @@ export const defaultLinks = ({ isLoggedIn, isAdmin, ..._props }) => (
         action: true,
         small: true,
       },
-    },
-    {
-      ...LinkEnum.SIGN_IN,
-      kind: 'button',
-      styleNames: [],
-      attrs: {
-        link: true,
-        small: true,
-      },
     }],
   } : {
     groupOne: [{

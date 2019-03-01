@@ -2,7 +2,6 @@ import _ from 'lodash';
 import { parseAnswers } from '../Create/parse-data.js';
 
 export default ({ responses, match }) => {
-  // console.log(responses);
   const domain = _.get(match, 'params.domain');
   if (!domain) return [];
   const { items } = JSON.parse(responses) || {};

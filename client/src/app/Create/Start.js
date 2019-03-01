@@ -26,7 +26,7 @@ const Start = ({ onStartClick, email, setEmail }) => (
       wide
       onClick={() => onStartClick({ email })}
     >
-      Let's get started &nbsp;<i className="small fas fa-external-link-alt" />
+      Let's get started &nbsp;➡{/* <i className="small fas fa-external-link-alt" /> */}
     </Button>
   </React.Fragment>
 );

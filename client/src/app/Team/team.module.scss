@@ -1,0 +1,9 @@
+@import "styles/variables.scss";
+
+.cardWrap {
+  cursor: pointer;
+  margin-bottom: 1rem;
+  &:hover {
+    opacity: 0.8;
+  }
+}

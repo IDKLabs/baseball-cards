@@ -1,6 +1,8 @@
 @import "styles/variables.scss";
 
 .card {
+  background-color: white;
+  @include ev-4;
   height: 600px;
   width: 400px;
   border: 1px solid black;
@@ -29,6 +31,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   border: 1px solid grey;
   padding: 10px;
   border-radius: 5px;
@@ -45,12 +48,15 @@
 .image {
   height: 200px;
   width: 200px;
-  background-color: grey;
+  background-color: #ddd;
   margin-bottom: 10px;
   border-radius: 3px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .id {
@@ -75,7 +81,7 @@
 .skills {
   display: flex;
   justify-content: space-between;
-  flex-grow: 1;
+  // flex-grow: 1;
   min-height: 100px;
   align-items: center;
 }
@@ -108,4 +114,22 @@
 
 .fact, .answer {
   margin: 10px 0;
+}
+
+
+// PREVIEW MODIFICATIONS
+
+.card.miniCard {
+  height: 300px;
+  .image {
+    height: 100px;
+    width: 100px;
+    margin: 0 auto 20px;
+  }
+  h2 {
+    margin-bottom: 10px;
+  }
+  .miniHeader {
+    text-align: center;
+  }
 }

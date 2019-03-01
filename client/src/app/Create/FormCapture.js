@@ -41,16 +41,16 @@ const FormCapture = ({ stage, ...props }) => {
   }
 
   if (stage === StageEnum.AWAITING_RESPONSE) {
-    if (!props.userEmail) {
-      props.setStage(StageEnum.START);
-    }
+    // if (!props.userEmail) {
+    //   props.setStage(StageEnum.START);
+    // }
     comp = <Awaiting {...props} />;
   }
 
   if (stage === StageEnum.SUCCESS) {
-    if (!props.userEmail) {
-      props.setStage(StageEnum.START);
-    }
+    // if (!props.userEmail) {
+    //   props.setStage(StageEnum.START);
+    // }
     comp = <Result {...props} />;
   }
 
@@ -62,7 +62,7 @@ const FormCapture = ({ stage, ...props }) => {
 };
 
 export default compose(
-  withState('stage', 'setStage', StageEnum.START),
+  withState('stage', 'setStage', StageEnum.SUCCESS),
   withState('userEmail', 'setUserEmail', ''),
   withHandlers({
     onStartClick: props => ({ email: newEmail }) => {

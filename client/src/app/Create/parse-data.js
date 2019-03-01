@@ -17,6 +17,11 @@ const QuestionEnum = Object.freeze({
   RJIuGCogR1O2: 'HOGWARTS',
   WkylEIcfBWYz: 'SKILLS',
   Etbsq0aUxmUq: 'PET',
+  IZJcMN49vJRg: 'PHOTO',
+  BvvQsh2qYBJ8: 'FAVORITE_BOOK',
+  KqnZOPCv0QBS: '??',
+  kZPO5ihsEVtI: 'NEXT_VACATION',
+  G6n5oMnKrOzT: 'FAVORITE_TV_SHOW',
 });
 
 const parseAnswer = (answer) => {
@@ -25,6 +30,8 @@ const parseAnswer = (answer) => {
     answerVal = answer.text;
   } else if (answer.type === 'choice') {
     answerVal = answer.choice.label;
+  } else if (answer.type === 'file_url') {
+    answerVal = answer.file_url;
   } else if (!answerVal || typeof answerVal !== 'string') {
     console.warn('unknown answer format:');
     console.log(answer);

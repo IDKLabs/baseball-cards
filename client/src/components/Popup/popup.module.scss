@@ -1,0 +1,163 @@
+@import "styles/variables.scss";
+
+$z-index: 99999999;
+$padding: 36px;
+$titlepadding: 22px;
+$maxHeight: 80vh;
+$titleFontSize: 18px;
+$titleHeight: $titlepadding * 2 + $titleFontSize;
+$actionsHeight: $padding * 2 + 30px;
+
+$mobile-breakpoint: 520px;
+
+@mixin popup-position($width: 600px) {
+  margin-left: $width / -2;
+  width: $width;
+  left: 50%;
+  @media screen and (max-width: $width) {
+    width: 100%;
+    margin-left: 0;
+    left: 0;
+  }
+}
+
+.popup {
+  position: fixed;
+  z-index: $z-index;
+  top: 10vh;
+  max-height: $maxHeight;
+  background-color: white;
+  overflow: hidden;
+  border-radius: 6px;
+  opacity: 1;
+  @include popup-position;
+  @include ev-24;
+  transition: 0.3s;
+
+  @media screen and (max-width: $mobile-breakpoint) {
+    top: 0;
+    bottom: 0;
+    max-height: 100vh;
+    overflow-y: scroll;
+    .popupContent {
+      max-height: 100vh;
+    }
+  }
+
+  &.xs {
+    @include popup-position(320px);
+  }
+
+  &.sm {
+    @include popup-position(460px);
+  }
+
+  &.md {
+    @include popup-position(800px);
+  }
+
+  &.xl {
+    @include popup-position(1200px);
+  }
+
+  &.max, &.fullScreen {
+    width: 100%;
+    margin-left: 0;
+    left: 0;
+  }
+
+  &.fullScreen {
+    top: 0;
+    bottom: 0;
+    max-height: 100%;
+    .popupContent {
+      max-height: 100%;
+    }
+  }
+}
+
+.popupTitle, .popupActions {
+  position: absolute;
+  right: 0;
+  left: 0;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+
+.popupTitle {
+  h3 {
+    font-size: $titleFontSize;
+    margin: 0;
+  }
+  border-bottom: 1px solid $list-group-border;
+  padding: 0 $padding;
+  height: $titleHeight;
+  border-top: 1px solid $list-group-border;
+  top: 0;
+}
+
+.popupActions {
+  bottom: 0;
+  justify-content: space-between;
+  height: $actionsHeight;
+  padding: 0 $padding;
+  border-top: 1px solid $list-group-border;
+  :global(.btn) {
+    font-weight: 400;
+  }
+}
+
+.popupContent {
+  overflow-x: hidden;
+  max-height: $maxHeight;
+  max-width: 100%;
+  padding: $padding;
+  &.hasTitle {
+    padding-top: $titleHeight + $padding;
+  }
+  &.hasActions {
+    padding-bottom: $actionsHeight + $padding;
+  }
+}
+
+.closeX {
+  -webkit-appearance: none;
+  cursor: pointer;
+  border: 0;
+  outline: 0;
+  position: absolute;
+  padding-top: $titlepadding;
+  padding-right: $titlepadding;
+  top: 0;
+  right: 0;
+  background-color: transparent;
+  line-height: 0;
+  z-index: 3;
+  color: $text-muted;
+  font-size: 30px;
+  &:hover {
+    color: $text-color;
+  }
+}
+
+
+.modal, .popup {
+  transition: 0.3s;
+}
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: $z-index - 1;
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.hidden .modal, .hidden .popup {
+  pointer-events: none;
+  opacity: 0;
+}
