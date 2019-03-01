@@ -54,12 +54,14 @@ export const parseAnswers = ({ answers }) => answers.reduce((acc, answer) => {
   };
 }, {});
 
+
 export default (props) => {
   const { typeformResponse } = props;
   let obj = typeformResponse;
   if (typeof obj === 'string') {
     obj = JSON.parse(typeformResponse);
   }
+  console.log(obj);
   if (!_.get(obj, 'response.0')) {
     return null;
   }
@@ -67,6 +69,7 @@ export default (props) => {
     console.warn('multiple responses for email!');
     console.log(obj.response);
   }
+  console.log(obj);
   const data = {
     response: obj.response[0],
     survey: obj.survey,

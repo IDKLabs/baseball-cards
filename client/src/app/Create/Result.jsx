@@ -23,12 +23,13 @@ const GET_TYPEFORM_RESPONSE = gql`
 `;
 
 const Result = ({
-  loading, userEmail, setStage, setUserName, ...props
+  loading, userEmail, setStage, setUserName, userName, ...props
 }) => {
+  console.log(props);
   if (loading) return <Loading />;
   const data = cleanData(props);
   if (!data) return <div>Not found :(</div>;
-  if (setUserName) {
+  if (setUserName && !userName) {
     setUserName(data.NAME);
   }
 
@@ -52,11 +53,12 @@ const Result = ({
 };
 export default compose(
   graphql(GET_TYPEFORM_RESPONSE, {
+    // skip: ({ userEmail }) => !userEmail,
     options: ({ userEmail }) => {
       console.log(userEmail);
       return {
         variables: {
-          email: userEmail,
+          email: 'emmyxxx@resource.io',
         },
       };
     },
