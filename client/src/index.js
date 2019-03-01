@@ -14,18 +14,23 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import App from 'app/Controller';
 import { signOut } from 'components/SignOutButton';
 
+
+const apiEndpoint = process.env.NODE_ENV === 'production'
+  ? 'teamagram1.herokuapp.com/graphql'
+  : 'localhost:8000/graphql';
+
 const httpLink = new HttpLink({
-  uri: `http://localhost:${process.env.PORT || '8000'}/graphql`,
+  uri: `http://${apiEndpoint}/graphql`,
 });
 
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:${process.env.PORT || '8000'}/graphql`,
+  uri: `ws://${apiEndpoint}/graphql`,
   options: {
     reconnect: true,
   },
 });
 
-console.log(`CLIENT connecting to graphql api http://localhost:${process.env.PORT || '8000'}/graphql`);
+console.log(`CLIENT connecting to graphql api http://${apiEndpoint}/graphql`);
 
 const terminatingLink = split(
   ({ query }) => {
