@@ -14,6 +14,7 @@ import styles from './card-styles.module.scss';
 import { SURVEY_URL } from './FormCapture';
 import cleanData from './parse-data';
 import Card from './Card';
+import CustomizeCard from './CustomizeCard';
 import { StageEnum } from './index.js';
 
 const GET_TYPEFORM_RESPONSE = gql`
@@ -35,11 +36,15 @@ const Result = ({
 
   return (
     <React.Fragment>
+      <div className="float-right">
+        { setStage && <Button onClick={() => setStage(StageEnum.SIGN_UP_TO_SAVE)}>Save your card</Button> }
+      </div>
       <h1>Your card</h1>
 
-      <Card data={data} />
-
-      { setStage && <Button onClick={() => setStage(StageEnum.SIGN_UP_TO_SAVE)}>Save your card</Button> }
+      <div className={cx('d-flex justify-content-between')}>
+        <CustomizeCard data={data} />
+        {/* <Card data={data} /> */}
+      </div>
 
       <p className="mt-4 mb-1">Copy html for your card here:</p>
       <textarea

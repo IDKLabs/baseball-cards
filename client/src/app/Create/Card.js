@@ -5,6 +5,52 @@ import cx from 'classnames';
 import Block from 'components/Block';
 import Button from 'components/Button';
 import styles from './card-styles.module.scss';
+import { QuestionEnum } from './parse-data';
+
+const DynamicFact = ({ data, keyname }) => {
+  const question = QuestionEnum[keyname];
+  if (!question) {
+    // console.log('missing q..??');
+    // // console.log(QuestionEnum);
+    // console.log(QuestionEnum, keyname);
+    return <div />;
+  }
+  return (<div className={cx(styles.keyname, styles.fact)}>
+    <label>{question.label}</label>
+    <p className={cx(styles.house)}>{data[keyname]}</p>
+  </div>
+  );
+};
+
+const DynamicFeature = ({ data, keyname }) => {
+  const question = QuestionEnum[keyname];
+  if (!question) {
+    console.log('missing q feature');
+    console.log(keyname);
+    console.log(QuestionEnum);
+    return <div />;
+  }
+  return (
+    <div className={cx(styles.skill)}>
+      <span className={cx(styles.emoji)} role="img">
+        { question.emoji ? question.emoji(data[keyname]) : 'x' }
+      </span>
+      <p className={cx(styles.skilltxt)}>{data[keyname]}</p>
+    </div>
+  );
+};
+
+const DynamicFeatures = ({ data, features }) => (
+  <div className={cx(styles.skills)}>
+    {features.map(keyname => <DynamicFeature {...{ keyname, data }} />)}
+  </div>
+);
+
+const DynamicFacts = ({ data, facts }) => (
+  <div className={cx(styles.facts)}>
+    {facts.map(keyname => <DynamicFact {...{ keyname, data }} />)}
+  </div>
+);
 
 const Facts = ({ data }) => (
   <div className={cx(styles.facts)}>
@@ -105,6 +151,27 @@ export default ({ data }) => (
         </div>
       </div>
       <Skills data={data} />
+      <div className={cx(styles.chunk)}>
+        <Answers data={data} />
+      </div>
+    </div>
+  </div>
+);
+
+export const CustomizableCard = ({ data, facts, features }) => (
+  <div className={cx(styles.card)}>
+    <div className={cx(styles.cardContainer)}>
+      <div className={cx(styles.header)}>
+        <div className={cx(styles.upper)}>
+          <div className={cx(styles.image)} style={{ backgroundImage: `url(${data.PHOTO})` }}>🙂</div>
+          <DynamicFacts data={data} facts={facts} />
+        </div>
+        <div className={cx(styles.id)}>
+          <h2 className={cx(styles.name)}>{data.NAME}</h2>
+          <Social data={data} />
+        </div>
+      </div>
+      <DynamicFeatures data={data} features={features} />
       <div className={cx(styles.chunk)}>
         <Answers data={data} />
       </div>

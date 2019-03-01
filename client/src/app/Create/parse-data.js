@@ -1,27 +1,154 @@
 import _ from 'lodash';
 
-const QuestionEnum = Object.freeze({
-  rnvWAsfgW4RE: 'NAME',
-  vnvh1p0BHOjH: 'ROLE',
-  OujNkQUEGcxq: 'ENNEAGRAM',
-  lholtbCkm542: 'MYERS',
-  yswVsZJF3OLY: 'GITHUB',
-  LhOaJ52zKTqh: 'FUN_FACTS',
-  ajOTXg81Ou9e: 'STRENGTHS',
-  DmaCcx7NbRCK: 'GROWTH_AREAS',
-  zCF8EtswjLgK: 'ETC',
-  G2ClpKHU5MXL: 'VALUES',
-  imO8dFX8WJYj: 'GOALS',
-  ek8ABqe04iZA: 'INSTAGRAM',
-  ENKedq86vJws: 'EMOJI',
-  RJIuGCogR1O2: 'HOGWARTS',
-  WkylEIcfBWYz: 'SKILLS',
-  Etbsq0aUxmUq: 'PET',
-  IZJcMN49vJRg: 'PHOTO',
-  BvvQsh2qYBJ8: 'FAVORITE_BOOK',
-  KqnZOPCv0QBS: '??',
-  kZPO5ihsEVtI: 'NEXT_VACATION',
-  G6n5oMnKrOzT: 'FAVORITE_TV_SHOW',
+const HogwartsHouseEmojis = Object.freeze({
+  Gryffindor: '🦁',
+  Ravenclaw: '🐦',
+  Hufflepuff: '🐨',
+  Slytherin: '🐍',
+});
+
+const RoleEmojis = Object.freeze({
+  Engineer: '🛠',
+  Design: '🎨',
+  Product: '🔮',
+  OTHER: '💪',
+});
+
+const PetEmojis = Object.freeze({
+  dogs: '🐶',
+  cats: '😼',
+  fish: '🐟',
+  OTHER: '🦖',
+});
+
+const EnneagramEmojis = Object.freeze({
+  OTHER: '💙',
+});
+
+const MeyersEmojis = Object.freeze({
+  OTHER: '💛',
+});
+
+export const QuestionEnum = Object.freeze({
+  NAME: {
+    value: 'NAME',
+    label: 'Name',
+  },
+  ROLE: {
+    value: 'ROLE',
+    label: 'Role',
+    emoji: val => RoleEmojis[val] || RoleEmojis.OTHER,
+  },
+  ENNEAGRAM: {
+    value: 'ENNEAGRAM',
+    label: 'Enneagram',
+    emoji: val => EnneagramEmojis[val] || EnneagramEmojis.OTHER,
+  },
+  MYERS: {
+    value: 'MYERS',
+    label: 'Myers-Briggs',
+    emoji: val => MeyersEmojis[val] || MeyersEmojis.OTHER,
+  },
+  GITHUB: {
+    value: 'GITHUB',
+    label: 'Github',
+    emoji: () => '💻',
+  },
+  FUN_FACTS: {
+    value: 'FUN_FACTS',
+    label: 'Fun facts',
+  },
+  STRENGTHS: {
+    value: 'STRENGTHS',
+    label: 'Strengths',
+  },
+  GROWTH_AREAS: {
+    value: 'GROWTH_AREAS',
+    label: 'Growth areas',
+  },
+  ETC: {
+    value: 'ETC',
+    label: 'etc',
+  },
+  VALUES: {
+    value: 'VALUES',
+    label: 'Values',
+  },
+  GOALS: {
+    value: 'GOALS',
+    label: 'Goals',
+  },
+  INSTAGRAM: {
+    value: 'INSTAGRAM',
+    label: 'Instagram',
+  },
+  EMOJI: {
+    value: 'EMOJI',
+    label: 'Favorite emoji',
+    emoji: val => val,
+  },
+  HOGWARTS: {
+    value: 'HOGWARTS',
+    label: 'Hogwarts house',
+    emoji: val => HogwartsHouseEmojis[val] || '',
+  },
+  SKILLS: {
+    value: 'SKILLS',
+    label: 'Skills',
+  },
+  PET: {
+    value: 'PET',
+    label: 'Pet',
+    emoji: val => PetEmojis[val] || PetEmojis.OTHER,
+  },
+  PHOTO: {
+    value: 'PHOTO',
+    label: 'Pic',
+  },
+  FAVORITE_BOOK: {
+    value: 'FAVORITE_BOOK',
+    label: 'Favorite book',
+    emoji: () => '📚',
+  },
+  FAVORITE_BOARD_GAME: {
+    value: 'FAVORITE_BOARD_GAME',
+    label: 'Favorite board game',
+    emoji: () => '🎲',
+  },
+  NEXT_VACATION: {
+    value: 'NEXT_VACATION',
+    label: 'Next vacation',
+    emoji: () => '🏝',
+  },
+  FAVORITE_TV_SHOW: {
+    value: 'FAVORITE_TV_SHOW',
+    label: 'Favorite TV Show',
+    emoji: () => '📺',
+  },
+});
+
+const QuestionIdEnum = Object.freeze({
+  rnvWAsfgW4RE: QuestionEnum.NAME.value,
+  vnvh1p0BHOjH: QuestionEnum.ROLE.value,
+  OujNkQUEGcxq: QuestionEnum.ENNEAGRAM.value,
+  lholtbCkm542: QuestionEnum.MYERS.value,
+  yswVsZJF3OLY: QuestionEnum.GITHUB.value,
+  LhOaJ52zKTqh: QuestionEnum.FUN_FACTS.value,
+  ajOTXg81Ou9e: QuestionEnum.STRENGTHS.value,
+  DmaCcx7NbRCK: QuestionEnum.GROWTH_AREAS.value,
+  zCF8EtswjLgK: QuestionEnum.ETC.value,
+  G2ClpKHU5MXL: QuestionEnum.VALUES.value,
+  imO8dFX8WJYj: QuestionEnum.GOALS.value,
+  ek8ABqe04iZA: QuestionEnum.INSTAGRAM.value,
+  ENKedq86vJws: QuestionEnum.EMOJI.value,
+  RJIuGCogR1O2: QuestionEnum.HOGWARTS.value,
+  WkylEIcfBWYz: QuestionEnum.SKILLS.value,
+  Etbsq0aUxmUq: QuestionEnum.PET.value,
+  IZJcMN49vJRg: QuestionEnum.PHOTO.value,
+  BvvQsh2qYBJ8: QuestionEnum.FAVORITE_BOOK.value,
+  KqnZOPCv0QBS: QuestionEnum.FAVORITE_BOARD_GAME.value,
+  kZPO5ihsEVtI: QuestionEnum.NEXT_VACATION.value,
+  G6n5oMnKrOzT: QuestionEnum.FAVORITE_TV_SHOW.value,
 });
 
 const parseAnswer = (answer) => {
@@ -40,7 +167,7 @@ const parseAnswer = (answer) => {
 };
 
 export const parseAnswers = ({ answers }) => answers.reduce((acc, answer) => {
-  const key = QuestionEnum[answer.field.id];
+  const key = QuestionIdEnum[answer.field.id];
   if (!key) {
     console.warn('answer missing q id:');
     console.log(answer);

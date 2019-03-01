@@ -1,0 +1,190 @@
+@import "styles/variables.scss";
+
+$toggle-width: 34px;
+$toggle-height: ($toggle-width / 2) + 2;
+$false-color: $kent-gray-200;
+
+.fancyBool {
+  input {
+    position: relative;
+    border: none;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+    margin-bottom: -4px;
+    margin-right: 5px;
+  }
+
+  &.readonly {
+    pointer-events: none;
+    input, .toggleWrap {
+      opacity: 0.7;
+    }
+  }
+
+  &.disabled {
+    pointer-events: none;
+    color: $input-disabled-color;
+  }
+
+  &.checkbox {
+    input {
+      &:focus:after {
+        border-color: $primary;
+      }
+
+      &:after {
+        content: "";
+        display: block;
+        width: 18px;
+        height: 18px;
+        margin-top: -2px;
+        border: 1px solid $false-color;
+        border-radius: 2px;
+        transition: 240ms;
+      }
+
+      &:checked:after {
+        background-color: $primary;
+        border-color: $primary;
+      }
+
+      &:disabled:after {
+        border-color: $input-disabled-color;
+      }
+
+      &:disabled:checked:after {
+        background-color: $input-disabled-color;
+        border-color: transparent;
+      }
+
+      &:checked:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 6px;
+        display: table;
+        width: 6px;
+        height: 12px;
+        border: 2px solid #fff;
+        border-top-width: 0;
+        border-left-width: 0;
+        @include rotate(45deg);
+      }
+    }
+  }
+
+  &.radio {
+    input {
+      &:after {
+        content: "";
+        display: block;
+        width: 18px;
+        height: 18px;
+        margin-top: -2px;
+        border: 1px solid $false-color;
+        transition: 240ms;
+        border-radius: 50%;
+        background-size: 8px;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      &:checked:after {
+        background-color: transparent;
+        border-color: $false-color;
+      }
+
+      &:checked:before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: $primary;
+        top: 1px;
+        left: 3px;
+        border: none;
+      }
+
+      &:disabled:checked:before {
+        background-color: $input-disabled-color;
+      }
+    }
+  }
+
+  &.error {
+    input {
+      &:checked:after {
+        background-color: $danger;
+        border-color: $danger;
+      }
+    }
+    .label {
+      color: $danger;
+    }
+  }
+
+  &.toggle {
+    input {
+      display: none;
+      &:checked + .toggleWrap {
+        border: 1px solid $primary;
+        .toggleBackground {
+          width: $toggle-width;
+        }
+        .toggler {
+          border-color: $primary;
+          left: ($toggle-width / 2) - 3;
+          top: -1px;
+        }
+      }
+      &:disabled + .toggleWrap {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .toggleWrap {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: -4px;
+    margin-right: 5px;
+    cursor: pointer;
+
+    width: $toggle-width;
+    height: $toggle-height;
+    border-radius: $toggle-height;
+    border: 1px solid $false-color;
+
+    .toggleBackground {
+      transition: all 0.1s linear;
+      display: block;
+      position: absolute;
+      left: -1px;
+      top: 0px;
+
+      width: 0px;
+      height: $toggle-height;
+      border-radius: $toggle-height;
+      background-color: $primary;
+    }
+
+    .toggler {
+      transition: all 0.1s linear;
+      display: block;
+      position: relative;
+      top: -1px;
+      left: -1px;
+
+      width: $toggle-height;
+      height: $toggle-height;
+      border-radius: $toggle-height;
+      border: 1px solid $false-color;
+      background-color: #ffffff;
+    }
+  }
+}
