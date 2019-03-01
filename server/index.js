@@ -87,7 +87,7 @@ const httpServer = http.createServer(app);
 server.installSubscriptionHandlers(httpServer);
 
 const isTest = !!process.env.TEST_DATABASE_URL;
-// const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = process.env.NODE_ENV === 'production';
 const port = process.env.PORT || 8000;
 
 connectDb().then(async () => {
@@ -98,7 +98,9 @@ connectDb().then(async () => {
       models.Message.deleteMany({}),
     ]);
 
-    createUsersWithMessages(new Date());
+    if (!isProduction) {
+      createUsersWithMessages(new Date());
+    }
   }
 
   httpServer.listen({ port }, () => {
