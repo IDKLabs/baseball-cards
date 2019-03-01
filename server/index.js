@@ -23,6 +23,9 @@ app.use(morgan('dev'));
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile('index.html');
+  });
 }
 
 const getMe = async (req) => {
