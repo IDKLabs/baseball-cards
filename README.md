@@ -19,13 +19,15 @@ echo "NODE_PATH=src/
 SKIP_PREFLIGHT_CHECK=true" >> client/.env
 ```
 
-3. Install ttab globally
-`npm install -g ttab`
-
-3. Install & start 
+3. (optional) Install ttab globally and install
 ```
+npm install -g ttab
 sh setup.sh
-sh dev.sh
+```
+
+3. Start 
+```
+npm run start
 ```
 
 
