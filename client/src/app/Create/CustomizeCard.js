@@ -14,51 +14,77 @@ import Boolean from 'components/Boolean';
 import styles from './card-styles.module.scss';
 import { SURVEY_URL } from './FormCapture';
 import cleanData from './parse-data';
-import Card, { CustomizableCard } from './Card';
+import Card, { CustomizableCard, DEFAULT_FEATURES, DEFAULT_FACTS } from './Card';
 import { StageEnum } from './index.js';
 import { QuestionEnum } from './parse-data';
 import CustomizeForm from './CustomizeForm';
 
-const CustomizeCard = (props) => {
+const UPDATE_PREFERENCES = gql`
+  mutation($preferences: PreferencesInput!) {
+    updatePreferences(preferences: $preferences) {
+      id
+      preferences {
+        features
+        facts
+      }
+    }
+  }
+`;
+
+const CustomizeCard = ({ features, facts, ...props }) => {
   console.log(props);
+  console.log(features);
+  console.log(facts);
   return (
     <div className={cx('text-left', 'd-flex', styles.customizeForm)}>
-      <CustomizeForm {...props} />
-      <CustomizableCard {...props} />
+      <CustomizeForm {...props} {...{ features, facts }} />
+      <CustomizableCard {...props} preferences={{ features, facts }} />
     </div>
   );
 };
 
 export default compose(
-  withStateHandlers(() => ({
-    features: ['ROLE', 'PET', 'NEXT_VACATION'],
-    facts: ['ENNEAGRAM', 'MYERS', 'EMOJI', 'HOGWARTS'],
+  graphql(UPDATE_PREFERENCES, { name: 'updatePreferencesMutation' }),
+  withHandlers({
+    updatePreferences: props => async (preferences) => {
+      console.log(preferences);
+      try {
+        await props.updatePreferencesMutation({ variables: { preferences } });
+      } catch (e) {
+        console.error(e);
+      }
+    },
+  }),
+  withStateHandlers(({ preferences = {} }) => ({
+    features: _.get(preferences, 'features') || DEFAULT_FEATURES,
+    facts: _.get(preferences, 'facts') || DEFAULT_FACTS,
   }), {
-    update: ({ features, facts }, _props) => (category, item) => {
-      const next = {
+    update: ({ features, facts }, { updatePreferences }) => (category, item) => {
+      let next = {
         facts: _.difference(facts, [item]),
         features: _.difference(features, [item]),
       };
       const changing = category === 'features' ? features : facts;
       if (features.includes(item) && category !== 'features') {
-        return next;
-      }
-      if (changing.includes(item)) {
-        return category === 'features' ? {
+        console.log('cool');
+      } else if (changing.includes(item)) {
+        next = category === 'features' ? {
           ...next,
           facts: facts.concat([item]),
         } : next;
-      }
-      if (category === 'features' && features.length >= 3) {
-        return {
+      } else if (category === 'features' && features.length >= 3) {
+        next = {
           ...next,
           features: features.splice(0, 2).concat([item]),
         };
+      } else {
+        next = {
+          ...next,
+          [category]: changing.concat([item]),
+        };
       }
-      return {
-        ...next,
-        [category]: changing.concat([item]),
-      };
+      updatePreferences(next);
+      return next;
     },
   }),
 )(CustomizeCard);

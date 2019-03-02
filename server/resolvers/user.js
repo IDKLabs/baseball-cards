@@ -1,10 +1,10 @@
 import jwt from 'jsonwebtoken';
 import { combineResolvers } from 'graphql-resolvers';
 import { AuthenticationError, UserInputError } from 'apollo-server';
-
+import faker from 'faker';
 import { isAdmin, isAuthenticated } from './authorization';
 
-const createToken = async (user, secret, expiresIn) => {
+const createToken = async (user, secret, expiresIn = '365d') => {
   const {
     id, email, username, role,
   } = user;
@@ -19,6 +19,7 @@ export default {
   Query: {
     users: async (parent, args, { models }) => await models.User.find(),
     user: async (parent, { id }, { models }) => await models.User.findById(id),
+    userByEmail: async (parent, { email }, { models }) => await models.User.findOne({ email }),
     me: async (parent, args, { models, me }) => {
       if (!me) {
         return null;
@@ -31,16 +32,17 @@ export default {
   Mutation: {
     signUp: async (
       parent,
-      { username, email, password },
+      { fullName, email, password },
       { models, secret },
     ) => {
       const user = await models.User.create({
-        username,
+        fullName,
         email,
         password,
+        username: `${faker.internet.userName()}${faker.random.number()}`,
       });
 
-      return { token: createToken(user, secret, '30m') };
+      return { token: createToken(user, secret) };
     },
 
     signIn: async (
@@ -62,7 +64,7 @@ export default {
         throw new AuthenticationError('Incorrect password.');
       }
 
-      return { token: createToken(user, secret, '30m') };
+      return { token: createToken(user, secret) };
     },
 
     updateUser: combineResolvers(
@@ -70,6 +72,15 @@ export default {
       async (parent, { username }, { models, me }) => await models.User.findByIdAndUpdate(
         me.id,
         { username },
+        { new: true },
+      ),
+    ),
+
+    updatePreferences: combineResolvers(
+      isAuthenticated,
+      async (parent, { preferences }, { models, me }) => await models.User.findByIdAndUpdate(
+        me.id,
+        { preferences },
         { new: true },
       ),
     ),

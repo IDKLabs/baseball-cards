@@ -5,45 +5,29 @@ import cx from 'classnames';
 import {
   compose, branch, withState, withHandlers,
 } from 'recompose';
-import { graphql } from 'react-apollo';
 import Block from 'components/Block';
 import Button from 'components/Button';
-import gql from 'graphql-tag';
-import Loading from 'components/Loading';
 import styles from './card-styles.module.scss';
-import { SURVEY_URL } from './FormCapture';
-import cleanData from './parse-data';
 import Card from './Card';
-import CustomizeCard from './CustomizeCard';
 import { StageEnum } from './index.js';
-
-const GET_TYPEFORM_RESPONSE = gql`
-  query($email: String!) {
-    typeformResponse(email: $email)
-  }
-`;
+import withCardHandlers from './withCardHandlers';
 
 const Result = ({
-  loading, userEmail, setStage, setUserName, userName, ...props
+  data, setStage, setUserName, userName, ...props
 }) => {
-  console.log(props);
-  if (loading) return <Loading />;
-  const data = cleanData(props);
-  if (!data) return <div>Not found :(</div>;
-  if (setUserName && !userName) {
+  if (setUserName && !userName && _.get(data, 'NAME')) {
     setUserName(data.NAME);
   }
 
   return (
     <React.Fragment>
       <div className="float-right">
-        { setStage && <Button onClick={() => setStage(StageEnum.SIGN_UP_TO_SAVE)}>Save your card</Button> }
+        { setStage && <Button onClick={() => setStage(StageEnum.SIGN_UP_TO_SAVE)}>Log in to save & customize your card</Button> }
       </div>
       <h1>Your card</h1>
 
       <div className={cx('d-flex justify-content-between')}>
-        <CustomizeCard data={data} />
-        {/* <Card data={data} /> */}
+        <Card data={data} />
       </div>
 
       <p className="mt-4 mb-1">Copy html for your card here:</p>
@@ -56,20 +40,8 @@ const Result = ({
     </React.Fragment>
   );
 };
+
+// export
 export default compose(
-  graphql(GET_TYPEFORM_RESPONSE, {
-    // skip: ({ userEmail }) => !userEmail,
-    options: ({ userEmail }) => {
-      console.log(userEmail);
-      return {
-        variables: {
-          email: 'emmyxxx@resource.io',
-        },
-      };
-    },
-    props: ({ data }) => {
-      console.log('..');
-      return data;
-    },
-  }),
+  withCardHandlers,
 )(Result);

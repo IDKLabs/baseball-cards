@@ -63,7 +63,6 @@ const FormCapture = ({ stage, ...props }) => {
 };
 
 export default compose(
-  // withState('stage', 'setStage', StageEnum.SUCCESS),
   withRouter,
   withProps(({ match, history }) => ({
     stage: _.get(match, 'params.stage'),

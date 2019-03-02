@@ -1,15 +1,24 @@
 import React from 'react';
-// import { MessageCreate, Messages } from 'components/Message';
+import {
+  compose, branch, withState, withHandlers, withProps,
+} from 'recompose';
 import Block from 'components/Block';
 import Button from 'components/Button';
-import Result from '../Create/Result';
+import CustomizeCard from '../Create/CustomizeCard';
+import withCardHandlers from '../Create/withCardHandlers';
 
-const Landing = ({ session }) => (
+const Landing = props => (
   <Block>
-    <Result userEmail={session.me.email} />
+    <CustomizeCard {...props} />
 
-    <Button className="mt-4" action to={`/team/${session.me.email.split('@')[1]}`}>View team cards</Button>
+    <Button className="mt-4" action to={`/team/${props.session.me.email.split('@')[1]}`}>View team cards</Button>
   </Block>
 );
 
-export default Landing;
+export default compose(
+  withProps(({ session }) => ({
+    userEmail: session.me.email,
+    preferences: session.me.preferences,
+  })),
+  withCardHandlers,
+)(Landing);

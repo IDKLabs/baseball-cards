@@ -46,8 +46,7 @@ const featurable = [
 export default ({
   update, features, facts, ...props
 }) => {
-  const onChangeFn = (category, item) => (e) => {
-    console.log(e);
+  const onChangeFn = (category, item) => () => {
     update(category, item);
   };
   return (
@@ -55,7 +54,7 @@ export default ({
       { customizable.map((item) => {
         const label = QuestionEnum[item].label;
         return (
-          <div className={cx('mt-3')}>
+          <div key={item} className={cx('mt-3')}>
             <p className={cx('mb-1')}><b>
               <Boolean
                 onChange={onChangeFn('facts', item)}
@@ -83,32 +82,3 @@ export default ({
     </div>
   );
 };
-
-// export default compose(
-//   withStateHandlers(() => ({
-//     features: ['ROLE', 'PET', 'NEXT_VACATION'],
-//     facts: ['ENNEAGRAM', 'MYERS', 'EMOJI', 'HOGWARTS'],
-//   }), {
-//     update: ({ features, facts }, _props) => (category, item) => {
-//       const next = {
-//         facts: _.difference(facts, [item]),
-//         features: _.difference(features, [item]),
-//       };
-//       const changing = category === 'features' ? features : facts;
-//       if (features.includes(item) && category !== 'features') {
-//         console.log('yep');
-//         return next;
-//       }
-//       if (changing.includes(item)) {
-//         return category === 'features' ? {
-//           ...next,
-//           facts: facts.concat([item]),
-//         } : next;
-//       }
-//       return {
-//         ...next,
-//         [category]: changing.concat([item]),
-//       };
-//     },
-//   }),
-// )(Result);

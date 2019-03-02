@@ -3,6 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { compose, branch } from 'recompose';
+import { withRouter } from 'react-router-dom';
+import withSession from '../_session/withSession';
 import { SignUpForm } from '../SignUp';
 
 const SignUpToSave = ({ userEmail, userName, ...props }) => {
@@ -20,4 +22,7 @@ const SignUpToSave = ({ userEmail, userName, ...props }) => {
   );
 };
 
-export default SignUpToSave;
+export default compose(
+  withRouter,
+  withSession,
+)(SignUpToSave);

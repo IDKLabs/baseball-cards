@@ -10,5 +10,8 @@ export default ({ responses, match }) => {
     if (!email) return false;
     return email.includes(domain);
   });
-  return domainMatches.map(typeformResponse => parseAnswers(typeformResponse));
+  return domainMatches.map(response => ({
+    data: parseAnswers(response),
+    userEmail: _.get(response, 'hidden.email'),
+  }));
 };

@@ -8,15 +8,15 @@ import ErrorMessage from 'components/Error';
 import Button from 'components/Button';
 
 const SIGN_UP = gql`
-  mutation($username: String!, $email: String!, $password: String!) {
-    signUp(username: $username, email: $email, password: $password) {
+  mutation($fullName: String!, $email: String!, $password: String!) {
+    signUp(fullName: $fullName, email: $email, password: $password) {
       token
     }
   }
 `;
 
 const INITIAL_STATE = {
-  username: '',
+  fullName: '',
   email: '',
   password: '',
   passwordConfirmation: '',
@@ -33,7 +33,7 @@ class SignUpForm extends Component {
   state = {
     ...INITIAL_STATE,
     email: this.props.email || '',
-    username: this.props.fullName || '',
+    fullName: this.props.fullName || '',
   };
 
   onChange = (event) => {
@@ -57,7 +57,7 @@ class SignUpForm extends Component {
 
   render() {
     const {
-      username,
+      fullName,
       email,
       password,
       passwordConfirmation,
@@ -66,19 +66,19 @@ class SignUpForm extends Component {
     const isInvalid = password !== passwordConfirmation
       || password === ''
       || email === ''
-      || username === '';
+      || fullName === '';
 
     return (
       <Mutation
         mutation={SIGN_UP}
-        variables={{ username, email, password }}
+        variables={{ fullName, email, password }}
       >
         {(signUp, { data, loading, error }) => (
           <form onSubmit={event => this.onSubmit(event, signUp)}>
             <input
               className="w-100 mb-3"
-              name="username"
-              value={username}
+              name="fullName"
+              value={fullName}
               onChange={this.onChange}
               type="text"
               placeholder="Full Name"

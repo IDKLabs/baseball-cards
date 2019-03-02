@@ -63,11 +63,11 @@ const Navigation = ({ ...props }) => {
   const links = defaultLinks({ ...props, isLoggedIn, isAdmin });
   return (
     <React.Fragment>
-      {_.map(links, linkGroup => (
-        <div className={styles.linkGroup}>
+      {_.map(links, (linkGroup, i) => (
+        <div key={`nav${i}`} className={styles.linkGroup}>
           {linkGroup.map(link => (link.kind === 'LOG_OUT'
-            ? <SignOutButton />
-            : <NavigationLink {...props} {...link} />))}
+            ? <SignOutButton key={link.to || link.kind} />
+            : <NavigationLink key={link.to || link.kind} {...props} {...link} />))}
         </div>
       ))}
     </React.Fragment>

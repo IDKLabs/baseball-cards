@@ -14,7 +14,7 @@ const RoleEmojis = Object.freeze({
   OTHER: '💪',
 });
 
-const PetEmojis = Object.freeze({
+export const PetEmojis = Object.freeze({
   dogs: '🐶',
   cats: '😼',
   fish: '🐟',

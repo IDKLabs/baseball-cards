@@ -13,8 +13,9 @@ import Popup from 'components/Popup';
 import Loading from 'components/Loading';
 import gql from 'graphql-tag';
 import parseData from './parse-data';
-import Card, { CardPreview } from '../Create/Card';
+import { CustomizableCardWithHandlers, CardPreview } from '../Create/Card';
 import styles from './team.module.scss';
+import TeamCard from './TeamCard';
 
 const GET_TYPEFORM_RESPONSES = gql`
   query {
@@ -24,12 +25,11 @@ const GET_TYPEFORM_RESPONSES = gql`
 
 
 const Team = ({
-  loading, popupData, setPopupData, ...props
+  loading, ...props
 }) => {
   if (loading) {
     return <Loading />;
   }
-  console.log(props);
   const domain = _.get(props, 'match.params.domain');
   const datum = parseData(props);
   if (!datum.length) {
@@ -38,20 +38,12 @@ const Team = ({
   return (
     <div>
       <div className="d-flex justify-content-around flex-wrap">
-        {datum.map(data => (
-          <div className={cx(styles.cardWrap)} onClick={() => setPopupData(data)}>
-            <CardPreview data={data} />
-          </div>
-        ))}
+        {datum.map(teammateData => <TeamCard {...props} {...teammateData} />)}
       </div>
 
       <div className={cx('d-flex justify-content-center mt-4')}>
         { !_.get(props, 'session.me') && <Button action to="/create">Create your own</Button> }
       </div>
-
-      <Popup size="sm" hidden={!popupData} close={() => setPopupData(null)}>
-        {popupData ? <div className="d-flex justify-content-center"><Card data={popupData} /></div> : <span /> }
-      </Popup>
     </div>
   );
 };
