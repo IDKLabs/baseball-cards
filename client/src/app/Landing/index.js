@@ -8,7 +8,7 @@ import CustomizeCard from '../Create/CustomizeCard';
 import withCardHandlers from '../Create/withCardHandlers';
 
 const Landing = props => (
-  <Block>
+  <Block style={{ maxWidth: '900px' }}>
     <CustomizeCard {...props} />
 
     <Button className="mt-4" action to={`/team/${props.session.me.email.split('@')[1]}`}>View team cards</Button>

@@ -31,23 +31,17 @@ const UPDATE_PREFERENCES = gql`
   }
 `;
 
-const CustomizeCard = ({ features, facts, ...props }) => {
-  console.log(props);
-  console.log(features);
-  console.log(facts);
-  return (
-    <div className={cx('text-left', 'd-flex', styles.customizeForm)}>
-      <CustomizeForm {...props} {...{ features, facts }} />
-      <CustomizableCard {...props} preferences={{ features, facts }} />
-    </div>
-  );
-};
+const CustomizeCard = ({ features, facts, ...props }) => (
+  <div className={cx('text-left', 'd-flex', 'w-100', 'justify-content-around', styles.customizeForm)}>
+    <CustomizeForm {...props} {...{ features, facts }} />
+    <CustomizableCard {...props} preferences={{ features, facts }} />
+  </div>
+);
 
 export default compose(
   graphql(UPDATE_PREFERENCES, { name: 'updatePreferencesMutation' }),
   withHandlers({
     updatePreferences: props => async (preferences) => {
-      console.log(preferences);
       try {
         await props.updatePreferencesMutation({ variables: { preferences } });
       } catch (e) {
@@ -64,9 +58,10 @@ export default compose(
         facts: _.difference(facts, [item]),
         features: _.difference(features, [item]),
       };
+
       const changing = category === 'features' ? features : facts;
+
       if (features.includes(item) && category !== 'features') {
-        console.log('cool');
       } else if (changing.includes(item)) {
         next = category === 'features' ? {
           ...next,

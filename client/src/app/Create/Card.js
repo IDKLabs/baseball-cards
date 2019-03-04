@@ -11,6 +11,11 @@ import withCardHandlers from './withCardHandlers';
 export const DEFAULT_FEATURES = ['ROLE', 'PET', 'NEXT_VACATION'];
 export const DEFAULT_FACTS = ['ENNEAGRAM', 'MYERS', 'EMOJI', 'HOGWARTS'];
 
+const getPreferences = ({ preferences }) => ({
+  facts: _.get(preferences, 'facts.0') ? preferences.facts : DEFAULT_FACTS,
+  features: _.get(preferences, 'features.0') ? preferences.features : DEFAULT_FEATURES,
+});
+
 const DynamicFact = ({ data, keyname }) => {
   const question = QuestionEnum[keyname];
   if (!question) {
@@ -165,20 +170,7 @@ export default ({ data }) => (
 );
 
 export const CustomizableCard = ({ data, preferences }) => {
-  const { facts, features } = {
-    facts: DEFAULT_FACTS,
-    features: DEFAULT_FEATURES,
-    ...preferences || {},
-  };
-
-  console.log(preferences);
-  console.log(facts);
-  console.log(features);
-
-  if (!facts || !features) {
-    console.log(preferences);
-    return <div />;
-  }
+  const { facts, features } = getPreferences({ preferences });
 
   return (
     <div className={cx(styles.card)}>
@@ -204,14 +196,17 @@ export const CustomizableCard = ({ data, preferences }) => {
 
 export const CustomizableCardWithHandlers = withCardHandlers(CustomizableCard);
 
-export const CardPreview = ({ data }) => (
-  <div className={cx(styles.card, styles.miniCard)}>
-    <div className={cx(styles.cardContainer)}>
-      <div className={cx(styles.miniHeader)}>
-        <div className={cx(styles.image)} />
-        <h2 className={cx(styles.name)}>{data.NAME}</h2>
+export const CardPreview = ({ data, preferences }) => {
+  const { facts, features } = getPreferences({ preferences });
+  return (
+    <div className={cx(styles.card, styles.miniCard)}>
+      <div className={cx(styles.cardContainer)}>
+        <div className={cx(styles.miniHeader)}>
+          <div className={cx(styles.image)} />
+          <h2 className={cx(styles.name)}>{data.NAME}</h2>
+        </div>
+        <DynamicFeatures data={data} features={features} />
       </div>
-      <Skills data={data} />
     </div>
-  </div>
-);
+  );
+};

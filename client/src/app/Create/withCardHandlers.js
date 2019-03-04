@@ -44,31 +44,30 @@ export default WrappedElement => compose(
       },
     }),
     props: ({ data }) => {
-      console.log('GET_PREFERENCES');
-      console.log(data);
+      // console.log('GET_PREFERENCES');
+      // console.log(data);
+      const x = 'x';
       return {
         preferences: _.get(data, 'userByEmail.preferences'),
       };
     },
   }),
+  branch(({ loading }) => loading, () => Loading),
   graphql(GET_TYPEFORM_RESPONSE, {
     skip: ({ userEmail, data }) => !userEmail || _.get(data, 'NAME'),
-    options: ({ userEmail }) => {
-      console.log(userEmail);
-      return {
-        variables: {
-          email: userEmail,
-        },
-      };
-    },
+    options: ({ userEmail }) => ({
+      variables: {
+        email: userEmail,
+      },
+    }),
     props: ({ data }) => {
-      console.log('..');
-      return data;
+      if (data.loading) return data;
+      return {
+        ...data,
+        data: cleanData(data),
+      };
     },
   }),
   branch(({ loading }) => loading, () => Loading),
-  withProps(props => ({
-    data: cleanData(props),
-  })),
   branch(({ data }) => !data, () => () => <div>Not found :(</div>),
 )(WrappedElement);

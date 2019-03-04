@@ -55,7 +55,7 @@ export default ({
         const label = QuestionEnum[item].label;
         return (
           <div key={item} className={cx('mt-3')}>
-            <p className={cx('mb-1')}><b>
+            <div className={cx('mb-2')}><b>
               <Boolean
                 onChange={onChangeFn('facts', item)}
                 label={label}
@@ -64,10 +64,11 @@ export default ({
                 value={facts.includes(item) || features.includes(item)}
               />
             </b>
-            </p>
+            </div>
             { featurable.includes(item) && (
               <span className="text-muted">
                 <Boolean
+                  small
                   onChange={onChangeFn('features', item)}
                   label="Featured"
                   id="features"

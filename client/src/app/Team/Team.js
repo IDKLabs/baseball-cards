@@ -12,7 +12,7 @@ import Button from 'components/Button';
 import Popup from 'components/Popup';
 import Loading from 'components/Loading';
 import gql from 'graphql-tag';
-import parseData from './parse-data';
+import parseData from './parse-team-data';
 import { CustomizableCardWithHandlers, CardPreview } from '../Create/Card';
 import styles from './team.module.scss';
 import TeamCard from './TeamCard';
@@ -38,7 +38,7 @@ const Team = ({
   return (
     <div>
       <div className="d-flex justify-content-around flex-wrap">
-        {datum.map(teammateData => <TeamCard {...props} {...teammateData} />)}
+        {datum.map((teammateData, i) => <TeamCard key={_.get(teammateData, 'userEmail', i)} {...props} {...teammateData} />)}
       </div>
 
       <div className={cx('d-flex justify-content-center mt-4')}>

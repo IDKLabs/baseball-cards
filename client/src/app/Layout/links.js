@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import * as routes from 'constants/routes';
 
 export const LinkEnum = Object.freeze({
@@ -31,7 +32,7 @@ export const LinkEnum = Object.freeze({
   },
 });
 
-export const defaultLinks = ({ isLoggedIn, isAdmin, ..._props }) => (
+export const defaultLinks = ({ isLoggedIn, isAdmin, ...props }) => (
   !isLoggedIn ? {
     groupOne: [],
     groupTwo: [{
@@ -54,12 +55,19 @@ export const defaultLinks = ({ isLoggedIn, isAdmin, ..._props }) => (
   } : {
     groupOne: [{
       ...LinkEnum.LANDING,
+      title: '🎨 Customize',
       styleNames: [],
+    }, {
+      to: `/team/${_.get(props, 'session.me.email').split('@')[1]}`,
+      title: '✨ My team',
+      // kind: 'button',
+      styleNames: [],
+      // attrs: {
+      //   action: true,
+      //   small: true,
+      // },
     }],
     groupTwo: [
-    // {
-    //   ...LinkEnum.ACCOUNT,
-    // },
       ...isAdmin ? [{
         ...LinkEnum.ADMIN,
       }] : [],

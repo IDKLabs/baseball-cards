@@ -1,6 +1,10 @@
 @import "styles/variables.scss";
 
 .cardWrap {
+  min-width: 400px;
+}
+
+.previewWrap {
   cursor: pointer;
   margin-bottom: 1rem;
   &:hover {

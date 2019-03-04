@@ -160,7 +160,7 @@ const parseAnswer = (answer) => {
   } else if (answer.type === 'file_url') {
     answerVal = answer.file_url;
   } else if (!answerVal || typeof answerVal !== 'string') {
-    console.warn('unknown answer format:');
+    console.log('unknown answer format:');
     console.log(answer);
   }
   return answerVal;
@@ -169,7 +169,7 @@ const parseAnswer = (answer) => {
 export const parseAnswers = ({ answers }) => answers.reduce((acc, answer) => {
   const key = QuestionIdEnum[answer.field.id];
   if (!key) {
-    console.warn('answer missing q id:');
+    console.log('answer missing q id:');
     console.log(answer);
     return acc;
   }
@@ -188,22 +188,18 @@ export default (props) => {
   if (typeof obj === 'string') {
     obj = JSON.parse(typeformResponse);
   }
-  console.log(obj);
   if (!_.get(obj, 'response.0')) {
     return null;
   }
   if (_.get(obj, 'response.1')) {
-    console.warn('multiple responses for email!');
+    console.log('multiple responses for email!');
     console.log(obj.response);
   }
-  console.log(obj);
   const data = {
     response: obj.response[0],
     survey: obj.survey,
   };
 
   const answers = parseAnswers(data.response);
-
-  console.log(answers);
   return answers;
 };
