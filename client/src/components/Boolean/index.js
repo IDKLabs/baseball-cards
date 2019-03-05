@@ -51,6 +51,7 @@ class FancyBoolean extends Component {
       toggle,
       id,
       label,
+      small,
     } = this.props;
 
     return (
@@ -64,6 +65,7 @@ class FancyBoolean extends Component {
             [styles.readonly]: readOnly,
             [styles[type]]: !toggle,
             [styles.toggle]: toggle,
+            [styles.small]: small,
           },
         )}
         style={style}
@@ -109,7 +111,7 @@ FancyBoolean.propTypes = {
   disabled: PropTypes.bool,
   error: PropTypes.bool,
   labelStyle: PropTypes.shape({}),
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   /** when true, onChange will pass the event instead of transforming it into a key-value pair. */
   passRawEvent: PropTypes.bool,
